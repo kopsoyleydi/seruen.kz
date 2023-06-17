@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href = "@{'/css/bootstrap.min.css'}">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="nav" style="font-family: sans-serif,'Maiandra GD'">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{'/'}">kino.kz</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/'}">Home</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{'/sign-in-page'}">Sign In</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{'/sign-up-page'}">Sign Up</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                    <a class="nav-link" th:href="@{'/admin-panel'}">Admin Panel</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_TEACHER')">
+                    <a class="nav-link" th:href="@{'/teacher-panel'}">Teacher Panel</a>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span th:text="${#authentication.principal.fullName}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/update-password-page'}">Update Password</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form th:action="@{'/sign-out'}" method="post">
+                                <button class="dropdown-item">Sign Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div layout:fragment="content"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src = "@{'/js/bootstrap.bundle.js'}"></script>
+</html>
