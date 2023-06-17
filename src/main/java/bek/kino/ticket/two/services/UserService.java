@@ -57,4 +57,8 @@ public class UserService implements UserDetailsService {
         }
         return null;
     }
+
+    public void updateUser(User user){
+        userRepository.save(user);
+    }
 }

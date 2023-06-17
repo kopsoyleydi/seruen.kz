@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <title>kino.kz</title>
     <link rel="stylesheet" type="text/css" th:href = "@{'/css/bootstrap.min.css'}">
-    <link rel="stylesheet" type="text/css" th:href="@{'/css/main.css'}">
     <link rel="icon" href="https://cdn.kino.kz/site/kino-kz-new-logo.svg">
 </head>
 <body>
@@ -39,6 +38,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/my_tickets'}">My tickets</a></li>
                         <li><a class="dropdown-item" th:href="@{'/update-password-page'}">Update Password</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>

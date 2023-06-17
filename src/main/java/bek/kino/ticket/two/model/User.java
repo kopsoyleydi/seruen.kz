@@ -24,6 +24,9 @@ public class User extends BaseModel implements UserDetails {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "img_link")
+    private String imgLink;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Permission> permissions;
 
