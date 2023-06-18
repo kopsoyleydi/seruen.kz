@@ -9,6 +9,4 @@ import lombok.Setter;
 public class TicketDTO {
     private Long id;
     private Long primeCodeTicket;
-    private Long event_id;
-    private Long user_id;
 }

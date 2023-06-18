@@ -30,9 +30,6 @@ public class User extends BaseModel implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Permission> permissions;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Tickets> tickets;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.permissions;

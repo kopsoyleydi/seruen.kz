@@ -27,7 +27,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <select name="event_id">
+                        <select name="event_id" class="form-control">
                             <option th:each="e : ${events}" th:value="${e.id}" th:text="${e.eventName}">
                             </option>
                         </select>
