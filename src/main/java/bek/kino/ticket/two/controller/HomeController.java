@@ -1,21 +1,37 @@
 package bek.kino.ticket.two.controller;
 
+import bek.kino.ticket.two.model.Event;
+import bek.kino.ticket.two.model.Tickets;
 import bek.kino.ticket.two.model.User;
+import bek.kino.ticket.two.repository.EventRepository;
+import bek.kino.ticket.two.repository.TicketsRepository;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private TicketsRepository ticketsRepository;
+
     @GetMapping(value = "/")
-    public String indexPage() {
+    public String indexPage(Model model) {
+        List<Event> events = eventRepository.findAll();
+        model.addAttribute("events",events);
         return "index";
     }
 
@@ -29,9 +45,12 @@ public class HomeController {
         return "signup";
     }
 
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/profile")
-    public String profilePage() {
+    public String profilePage(Model model) {
+        User user = userService.getCurrentSessionUser();
+        model.addAttribute("user",user);
         return "profile";
     }
 
