@@ -1,0 +1,19 @@
+package bek.kino.ticket.two.dto;
+
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class EventDTO {
+
+    private String eventName;
+    private String author;
+    private String event_date;
+    private String pictureLink;
+
+    @ManyToOne
+    private HallDTO hall;
+
+}

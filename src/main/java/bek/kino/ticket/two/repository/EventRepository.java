@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface EventRepository extends JpaRepository<Event,Long> {
     Event findAllById(Long eventId);
+    List<Event> findAll();
 
-    Event findAllById(RequestBody eventId);
 }

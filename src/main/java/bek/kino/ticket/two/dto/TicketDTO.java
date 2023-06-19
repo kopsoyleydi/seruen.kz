@@ -10,7 +10,6 @@ import lombok.Setter;
 public class TicketDTO {
     private Long id;
     private Long primeCodeTicket;
-
     @ManyToOne
     private UserDTO user;
 }
