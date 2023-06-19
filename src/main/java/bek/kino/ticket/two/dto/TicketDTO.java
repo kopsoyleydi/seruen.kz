@@ -1,6 +1,7 @@
 package bek.kino.ticket.two.dto;
 
 
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,4 +10,7 @@ import lombok.Setter;
 public class TicketDTO {
     private Long id;
     private Long primeCodeTicket;
+
+    @ManyToOne
+    private UserDTO user;
 }
