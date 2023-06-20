@@ -12,6 +12,5 @@ import java.util.List;
 @Transactional
 public interface TicketsRepository extends JpaRepository<Tickets,Long> {
     List<Tickets> findAll();
-
     Tickets findTicketsById(Long id);
 }

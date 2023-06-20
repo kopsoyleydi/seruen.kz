@@ -24,7 +24,7 @@ public class TicketsService {
 
     private final EventRepository eventRepository;
 
-    public Tickets setNewTicket(String username, Long eventId){
+    public Tickets setNewTicket(Long eventId){
         User user = userService.getCurrentSessionUser();
         Tickets tickets1 = new Tickets();
         Event event = eventRepository.findAllById(eventId);

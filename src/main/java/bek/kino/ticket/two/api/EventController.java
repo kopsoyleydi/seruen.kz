@@ -8,10 +8,7 @@ import bek.kino.ticket.two.model.Event;
 import bek.kino.ticket.two.services.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,9 @@ public class EventController {
     @PostMapping(value = "/addEvent")
     public EventDTO addEvent(@RequestBody EventDTO eventDTO){
         return eventService.addEvent(eventDTO);
+    }
+    @PostMapping(value = "/getEvent/{id}")
+    public EventDTO getEventById(@PathVariable(name = "id") Long id){
+        return eventService.getEventById(id);
     }
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface HallRepository extends JpaRepository<Hall,Long> {
+
+    Hall findAllById(Long id);
 }

@@ -2,7 +2,6 @@ package bek.kino.ticket.two.api;
 
 
 import bek.kino.ticket.two.dto.TicketDTO;
-import bek.kino.ticket.two.impl.TicketsRepoImpl;
 import bek.kino.ticket.two.BodySample.TicketBody;
 import bek.kino.ticket.two.model.Tickets;
 import bek.kino.ticket.two.services.TicketsService;
@@ -15,14 +14,11 @@ import java.util.List;
 @RestController
 public class TicketController {
 
-
-    private final TicketsRepoImpl ticketsRepo;
-
     private final TicketsService ticketsService;
 
     @PostMapping(value = "/bookTicket")
-    public String getTicket(@RequestParam(name = "user_email") String username, @RequestParam(name = "event_id") Long eventId){
-        ticketsService.setNewTicket(username,eventId);
+    public String getTicket(@RequestParam(name = "event_id") Long eventId){
+        ticketsService.setNewTicket(eventId);
         return "redirect:/";
     }
 

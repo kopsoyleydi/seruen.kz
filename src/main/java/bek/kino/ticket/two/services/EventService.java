@@ -24,4 +24,7 @@ public class EventService {
     public  EventDTO addEvent(EventDTO eventDTO){
         return eventMapper.toDto(eventRepo.addEvent(eventMapper.toModel(eventDTO)));
     }
+    public EventDTO getEventById(Long id){
+        return eventMapper.toDto(eventRepo.getEventById(id));
+    }
 }

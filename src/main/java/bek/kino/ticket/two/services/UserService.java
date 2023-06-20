@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
