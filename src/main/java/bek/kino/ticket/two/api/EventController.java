@@ -2,12 +2,8 @@ package bek.kino.ticket.two.api;
 
 
 import bek.kino.ticket.two.dto.EventDTO;
-import bek.kino.ticket.two.impl.EventRepoImpl;
-import bek.kino.ticket.two.mapper.EventMapper;
-import bek.kino.ticket.two.model.Event;
 import bek.kino.ticket.two.services.EventService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

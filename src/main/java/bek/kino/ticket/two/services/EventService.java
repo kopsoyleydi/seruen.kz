@@ -6,7 +6,6 @@ import bek.kino.ticket.two.impl.EventRepoImpl;
 import bek.kino.ticket.two.mapper.EventMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

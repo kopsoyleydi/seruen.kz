@@ -1,9 +1,6 @@
 package bek.kino.ticket.two.controller;
-
-import bek.kino.ticket.two.model.Event;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.EventRepository;
-import bek.kino.ticket.two.repository.TicketsRepository;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
