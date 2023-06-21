@@ -25,8 +25,6 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String indexPage(Model model) {
-        List<Event> events = eventRepository.findAll();
-        model.addAttribute("events",events);
         return "index";
     }
 
@@ -54,16 +52,16 @@ public class HomeController {
         return "403";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping(value = "set-image")
-    public String setImg(@RequestParam(name = "image_link") String link,
-                         @RequestParam(name = "user_email") String username){
-        User user = null;
-        user = (User) userService.loadUserByUsername(username);
-        user.setImgLink(link);
-        userService.updateUser(user);
-        return "redirect:/profile";
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping(value = "/set-image")
+//    public String setImg(@RequestParam(name = "image_link") String link,
+//                         @RequestParam(name = "user_email") String username){
+//        User user = null;
+//        user = (User) userService.loadUserByUsername(username);
+//        user.setImgLink(link);
+//        userService.updateUser(user);
+//        return "redirect:/profile";
+//    }
 
     @GetMapping(value = "/update-password-page")
     public String updatePasswordPage() {

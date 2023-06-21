@@ -27,6 +27,6 @@ public class CommentRepoImpl implements CommentRepoInterface {
 
     @Override
     public List<Comment> getCommentByUserId(Long id) {
-        return commentRepository.findCommentByUserId(id);
+        return commentRepository.findAllById(id);
     }
 }

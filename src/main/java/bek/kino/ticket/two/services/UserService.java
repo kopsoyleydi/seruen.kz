@@ -1,5 +1,8 @@
 package bek.kino.ticket.two.services;
 
+import bek.kino.ticket.two.BodySample.ImgUpdateBody;
+import bek.kino.ticket.two.dto.MainUserDTO;
+import bek.kino.ticket.two.mapper.MainUserMapper;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MainUserMapper mapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -59,5 +65,12 @@ public class UserService implements UserDetailsService {
 
     public void updateUser(User user){
         userRepository.save(user);
+    }
+
+    public MainUserDTO updateImgInProfile(ImgUpdateBody imgUpdateBody){
+        User user = null;
+        user = (User) loadUserByUsername(imgUpdateBody.userEmail);
+        user.setImgLink(imgUpdateBody.link);
+        return mapper.toDtoUser(userRepository.save(user));
     }
 }
