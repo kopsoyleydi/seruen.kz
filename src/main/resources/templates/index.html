@@ -9,36 +9,6 @@
                 Incorrect email or password!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <form method="post" th:action = "@{'/bookTicket'}">
-                <div class="row">
-                    <div class="col-12">
-                        <label>USER EMAIL : </label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <input type="email" class="form-control" required placeholder="Email" name="user_email">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label>SELECT EVENT</label>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <select name="event_id" class="form-control">
-                            <option th:each="e : ${events}" th:value="${e.id}" th:text="${e.eventName}">
-                            </option>
-                        </select>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <button class="btn btn-success">Get Ticket</button>
-                    </div>
-                </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>

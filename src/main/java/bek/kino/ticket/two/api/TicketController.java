@@ -16,12 +16,6 @@ public class TicketController {
 
     private final TicketsService ticketsService;
 
-    @PostMapping(value = "/bookTicket")
-    public String getTicket(@RequestParam(name = "event_id") Long eventId){
-        ticketsService.setNewTicket(eventId);
-        return "redirect:/";
-    }
-
     @GetMapping(value = "/getAllTickets")
     public List<TicketDTO> getAllTickets(){
         return ticketsService.getTickets();

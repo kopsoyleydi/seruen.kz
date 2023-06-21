@@ -49,12 +49,6 @@ public class HomeController {
         return "profile";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/my_tickets")
-    public String myTickets(){
-        return "my_tickets";
-    }
-
     @GetMapping(value = "/403-page")
     public String accessDenied() {
         return "403";

@@ -24,16 +24,6 @@ public class TicketsService {
 
     private final EventRepository eventRepository;
 
-    public Tickets setNewTicket(Long eventId){
-        User user = userService.getCurrentSessionUser();
-        Tickets tickets1 = new Tickets();
-        Event event = eventRepository.findAllById(eventId);
-        int random = (int)(Math.random() * 50 + 1);
-        tickets1.setPrimeCodeTicket((long) random);
-        tickets1.setUser(user);
-        tickets1.setEvent(event);
-        return ticketsRepo.addTicket(tickets1);
-    }
     public Tickets addTicket(TicketBody ticketBody){
         String username = ticketBody.getUsername();
         User user = (User) userService.loadUserByUsername(username);
