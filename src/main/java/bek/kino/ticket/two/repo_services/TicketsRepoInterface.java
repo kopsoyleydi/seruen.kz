@@ -10,4 +10,6 @@ public interface TicketsRepoInterface {
      Tickets getTicketById(Long id);
 
      Tickets addTicket(Tickets tickets);
+
+     Tickets getTicketByUserId(Long id);
 }

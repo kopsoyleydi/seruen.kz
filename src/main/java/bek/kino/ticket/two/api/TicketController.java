@@ -6,6 +6,7 @@ import bek.kino.ticket.two.BodySample.TicketBody;
 import bek.kino.ticket.two.model.Tickets;
 import bek.kino.ticket.two.services.TicketsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +23,13 @@ public class TicketController {
     }
 
     @PostMapping(value = "/addTicket")
-    public Tickets addTicket(@RequestBody TicketBody tickets){
+    public TicketDTO addTicket(@RequestBody TicketBody tickets){
         return ticketsService.addTicket(tickets);
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(value = "/getTicketByUserId")
+    public TicketDTO getTicketByUserId(){
+        return ticketsService.getTicketByUserId();
     }
 }

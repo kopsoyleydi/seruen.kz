@@ -24,7 +24,7 @@ public class TicketsService {
 
     private final EventRepository eventRepository;
 
-    public Tickets addTicket(TicketBody ticketBody){
+    public TicketDTO addTicket(TicketBody ticketBody){
         String username = ticketBody.getUsername();
         User user = (User) userService.loadUserByUsername(username);
         Tickets tickets1 = new Tickets();
@@ -33,10 +33,13 @@ public class TicketsService {
         tickets1.setPrimeCodeTicket((long) random);
         tickets1.setUser(user);
         tickets1.setEvent(event);
-        return ticketsRepo.addTicket(tickets1);
+        return mapper.toDto(ticketsRepo.addTicket(tickets1));
     }
-
     public List<TicketDTO> getTickets(){
         return mapper.toDtoList(ticketsRepo.getAllTickets());
+    }
+
+    public TicketDTO getTicketByUserId(){
+        return mapper.toDto(ticketsRepo.getTicketByUserId(userService.getCurrentSessionUser().getId()));
     }
 }

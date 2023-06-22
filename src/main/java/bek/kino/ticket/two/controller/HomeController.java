@@ -1,6 +1,5 @@
 package bek.kino.ticket.two.controller;
 import bek.kino.ticket.two.model.User;
-import bek.kino.ticket.two.repository.EventRepository;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,24 +16,6 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private EventRepository eventRepository;
-
-    @GetMapping(value = "/")
-    public String indexPage(Model model) {
-        return "index";
-    }
-
-    @GetMapping(value = "/sign-in-page")
-    public String signinPage() {
-        return "signin";
-    }
-
-    @GetMapping(value = "/sign-up-page")
-    public String signupPage() {
-        return "signup";
-    }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping(value = "/profile")
@@ -44,10 +25,6 @@ public class HomeController {
         return "profile";
     }
 
-    @GetMapping(value = "/403-page")
-    public String accessDenied() {
-        return "403";
-    }
 
 //    @PreAuthorize("isAuthenticated()")
 //    @PostMapping(value = "/set-image")
@@ -60,10 +37,6 @@ public class HomeController {
 //        return "redirect:/profile";
 //    }
 
-    @GetMapping(value = "/update-password-page")
-    public String updatePasswordPage() {
-        return "update-password";
-    }
 
     @PostMapping(value = "/to-sign-up")
     public String toSignUp(@RequestParam(name = "user_email") String email,
