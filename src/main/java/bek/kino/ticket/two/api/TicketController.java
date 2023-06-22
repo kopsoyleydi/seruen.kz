@@ -3,7 +3,6 @@ package bek.kino.ticket.two.api;
 
 import bek.kino.ticket.two.dto.TicketDTO;
 import bek.kino.ticket.two.BodySample.TicketBody;
-import bek.kino.ticket.two.model.Tickets;
 import bek.kino.ticket.two.services.TicketsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

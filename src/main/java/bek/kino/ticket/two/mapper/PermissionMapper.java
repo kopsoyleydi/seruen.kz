@@ -2,9 +2,7 @@ package bek.kino.ticket.two.mapper;
 
 
 import bek.kino.ticket.two.dto.PermissionDTO;
-import bek.kino.ticket.two.dto.TicketDTO;
 import bek.kino.ticket.two.model.Permission;
-import bek.kino.ticket.two.model.Tickets;
 import org.mapstruct.Mapper;
 
 import java.util.List;
