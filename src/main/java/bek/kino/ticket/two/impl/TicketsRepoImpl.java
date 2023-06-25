@@ -30,6 +30,6 @@ public class TicketsRepoImpl implements TicketsRepoInterface {
 
     @Override
     public Tickets getTicketByUserId(Long id) {
-        return ticketsRepository.findAllByUserId(id);
+        return ticketsRepository.getUserTicketById(id);
     }
 }

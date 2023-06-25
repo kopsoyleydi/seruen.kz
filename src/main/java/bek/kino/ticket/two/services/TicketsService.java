@@ -39,7 +39,7 @@ public class TicketsService {
         return mapper.toDtoList(ticketsRepo.getAllTickets());
     }
 
-    public TicketDTO getTicketByUserId(){
-        return mapper.toDto(ticketsRepo.getTicketByUserId(userService.getCurrentSessionUser().getId()));
+    public TicketDTO getTicketByUserId(Long id){
+        return mapper.toDto(ticketsRepo.getTicketByUserId(id));
     }
 }

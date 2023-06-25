@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class EventDTO {
 
+    private Long id;
     private String eventName;
     private String author;
     private String event_date;
