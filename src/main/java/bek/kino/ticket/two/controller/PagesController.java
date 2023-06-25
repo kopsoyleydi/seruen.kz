@@ -50,4 +50,9 @@ public class PagesController {
         return "eventPage";
     }
 
+    @GetMapping(value = "/selectSeat")
+    public String selectSeat(){
+        return "selectSeat";
+    }
+
 }

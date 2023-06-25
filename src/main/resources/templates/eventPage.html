@@ -9,41 +9,52 @@
       <div class="card-body">
         <h5 class="card-title" th:text="${event.eventName}"></h5>
         <p class="card-text" th:text="${event.event_date}"></p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary">Time 12:00</a>
       </div>
     </div>
     <div class="col ms-5">
       <div class="row mt-3">
-        <div class="col-12">
-          <label>NAME : </label>
+        <div class="col-6">
+          <label>Username : </label>
         </div>
       </div>
       <div class="row mt-2">
-        <div class="col-9">
-          <input type="text" class="form-control" id="courseName">
+        <div class="col-6">
+        <input id="username" type="email" class="form-control">
+          <input id="userId" type="hidden" th:value="${event.id}">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <button class="btn btn-success" onclick="addCourse()">Buy Ticket</button>
         </div>
       </div>
     </div>
-  </div>
+  </div><script type="text/javascript">
+  function addCourse() {
+    const httpRequest = new XMLHttpRequest();
+    httpRequest.open("POST", "/addTicket", true);
+    httpRequest.setRequestHeader("Content-Type", "application/json");
+
+    let username = document.getElementById("username");
+    let id = document.getElementById("userId");
+
+    httpRequest.onreadystatechange = function () {
+      if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+        username.value = "";
+        id.value = "";
+
+      }
+    };
+    let body = {
+      'username':username.value,
+      'id':id.value
+    };
+    body = JSON.stringify(body);
+    httpRequest.send(body);
+  }
+</script>
 </div>
-  <script type="text/javascript">
-    function addCourse() {
-      const httpRequest = new XMLHttpRequest();
-      httpRequest.open("POST", "/addTicket", true);
-      httpRequest.setRequestHeader("Content-Type", "application/json");
 
-      let courseName = document.getElementById("courseName");
-      let description = document.getElementById("description");
-      let price = document.getElementById("price");
-
-      httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-          courseName.value = "";
-          description.value = "";
-          price.value = "";
-        }
-      };
-    }
-  </script>
 </div>
 </html>
