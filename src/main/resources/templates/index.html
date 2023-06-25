@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th = "http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div layout:fragment="content">
     <main>
         <section class="py-5 text-center container">
@@ -17,7 +18,7 @@
         </section>
         <div class="album py-5 bg-body-tertiary">
             <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="carouselWithEvents">
+                <div class="row row-cols-1 row-cols-sm-4 row-cols-md-3 g-3" id="carouselWithEvents">
 
                 </div>
             </div>
@@ -40,7 +41,7 @@
                     for (let i = 0;i<courseList.length;i++){
                         tableContent += "<div class=\"col\">";
                         tableContent += "<div class=\"card shadow-sm\">";
-                        tableContent += "<img class=\"bd-placeholder-img card-img-top\" width=\"100%\" height=\"225\"" +
+                        tableContent += "<img class=\"bd-placeholder-img card-img-top\" width=\"70%\" height=\"345\"" +
                             " src='"+courseList[i].pictureLink+"'>";
                         tableContent += "<div class=\"card-body\">";
                         tableContent += "<p class=\"card-text\">" + courseList[i].author

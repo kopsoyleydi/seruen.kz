@@ -15,4 +15,5 @@ public class TicketDTO {
     private EventDTO event;
     @ManyToOne
     private UserDTO user;
+
 }

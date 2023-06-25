@@ -1,19 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th = "http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div layout:fragment="content">
-  <div class="p-5 mb-4 bg-body-tertiary rounded-3">
-    <div class="container-fluid py-5">
-      <h1 class="display-5 fw-bold">Custom jumbotron</h1>
-      <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
-      <button class="btn btn-primary btn-lg" type="button">Example button</button>
+  <div class="row">
+    <div class="card" style="width: 18rem;">
+      <img th:src="${event.pictureLink}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${event.eventName}"></h5>
+        <p class="card-text" th:text="${event.event_date}"></p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
+    <div class="col ms-5">
+      <div class="row mt-3">
+        <div class="col-12">
+          <label>NAME : </label>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-9">
+          <input type="text" class="form-control" id="courseName">
+        </div>
+      </div>
     </div>
   </div>
+</div>
   <script type="text/javascript">
-    loadEvent()
+    function addCourse() {
+      const httpRequest = new XMLHttpRequest();
+      httpRequest.open("POST", "/addTicket", true);
+      httpRequest.setRequestHeader("Content-Type", "application/json");
 
-    function loadEvent(){
+      let courseName = document.getElementById("courseName");
+      let description = document.getElementById("description");
+      let price = document.getElementById("price");
 
+      httpRequest.onreadystatechange = function () {
+        if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+          courseName.value = "";
+          description.value = "";
+          price.value = "";
+        }
+      };
     }
   </script>
 </div>

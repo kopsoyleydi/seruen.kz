@@ -9,6 +9,7 @@ import bek.kino.ticket.two.BodySample.TicketBody;
 import bek.kino.ticket.two.model.Tickets;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.EventRepository;
+import bek.kino.ticket.two.repository.HallRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
