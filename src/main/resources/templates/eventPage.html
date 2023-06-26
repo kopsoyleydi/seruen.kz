@@ -26,6 +26,20 @@
       </div>
       <div class="row mt-3">
         <div class="col-6">
+          <label>Select seat : </label>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <select id="place" class="form-select">
+            <option th:each="p : ${places}" th:text="${p}" th:value="${p}">
+
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
           <button class="btn btn-success" onclick="addCourse()">Buy Ticket</button>
         </div>
       </div>
@@ -38,17 +52,19 @@
 
     let username = document.getElementById("username");
     let id = document.getElementById("userId");
+    let place = document.getElementById("place");
 
     httpRequest.onreadystatechange = function () {
       if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
         username.value = "";
         id.value = "";
-
+        place.value = "";
       }
     };
     let body = {
       'username':username.value,
-      'id':id.value
+      'id':id.value,
+      'place':place.value
     };
     body = JSON.stringify(body);
     httpRequest.send(body);

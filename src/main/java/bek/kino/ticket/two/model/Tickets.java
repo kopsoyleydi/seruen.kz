@@ -19,4 +19,6 @@ public class Tickets extends BaseModel{
     @Column(name = "prime_code_ticket")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long primeCodeTicket;
+
+    private int place;
 }

@@ -8,4 +8,5 @@ import lombok.Setter;
 public class TicketBody {
     public String username;
     public Long id;
+    public int place;
 }

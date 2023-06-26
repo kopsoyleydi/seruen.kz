@@ -16,4 +16,5 @@ public class TicketDTO {
     @ManyToOne
     private UserDTO user;
 
+    private int place;
 }
