@@ -14,6 +14,7 @@ public class EventDTO {
     private String event_date;
     private String pictureLink;
 
+    private int price;
     @ManyToOne
     private HallDTO hall;
 

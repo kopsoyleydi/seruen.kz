@@ -27,4 +27,6 @@ public class Event extends BaseModel{
     @ManyToOne
     private Hall hall;
 
+    private int price;
+
 }

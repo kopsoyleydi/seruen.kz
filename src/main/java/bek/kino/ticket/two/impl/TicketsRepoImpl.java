@@ -28,13 +28,15 @@ public class TicketsRepoImpl implements TicketsRepoInterface {
         return ticketsRepository.save(tickets);
     }
 
-    @Override
-    public Tickets getTicketByUserId(Long id) {
-        return ticketsRepository.getUserTicketById(id);
-    }
+
 
     public List<Tickets> getTicketByEventId(Long id){
         return ticketsRepository.findAllByEvent_Id(id);
+    }
+
+    @Override
+    public List<Tickets> getAllTicketByUserId(Long id) {
+        return ticketsRepository.findAllByUserId(id);
     }
 
 }

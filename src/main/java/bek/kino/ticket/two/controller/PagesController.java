@@ -3,20 +3,17 @@ package bek.kino.ticket.two.controller;
 
 import bek.kino.ticket.two.dto.EventDTO;
 import bek.kino.ticket.two.dto.TicketDTO;
-import bek.kino.ticket.two.impl.TicketsRepoImpl;
-import bek.kino.ticket.two.mapper.TicketMapper;
-import bek.kino.ticket.two.model.Tickets;
-import bek.kino.ticket.two.repository.TicketsRepository;
+import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.services.EventService;
 import bek.kino.ticket.two.services.ListsForData;
 import bek.kino.ticket.two.services.TicketsService;
+import bek.kino.ticket.two.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +26,8 @@ public class PagesController {
     private final EventService eventService;
 
     private final TicketsService ticketsService;
+
+    private final UserService userService;
 
     @GetMapping(value = "/")
     public String indexPage(Model model) {
@@ -61,7 +60,7 @@ public class PagesController {
         eventDTO = eventService.getEventById(id);
         List<Integer> places = new ArrayList<>();
         List<Integer> listPlace = lists.getPlaces();
-        List<TicketDTO> ticketsList = ticketsService.getTicketByEventId(eventDTO.getId());
+        List<TicketDTO> ticketsList = ticketsService.getTicketByEventId(id);
         for (TicketDTO ticketDTO : ticketsList) {
             places.add(ticketDTO.getPlace());
         }
@@ -76,4 +75,10 @@ public class PagesController {
         return "selectSeat";
     }
 
+    @GetMapping(value = "/my_tickets")
+    public String userTickets(Model model){
+        User user = userService.getCurrentSessionUser();
+        model.addAttribute("user",user);
+        return "MyTickets";
+    }
 }

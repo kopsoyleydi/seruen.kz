@@ -15,8 +15,6 @@ import java.util.List;
 public interface TicketsRepository extends JpaRepository<Tickets,Long> {
     List<Tickets> findAll();
     Tickets findTicketsById(Long id);
-    @Query(value = "SELECT t FROM Tickets t WHERE t.user.id = :userId")
-    Tickets getUserTicketById(@Param("userId") Long userId);
-
+    List<Tickets> findAllByUserId(Long id);
     List<Tickets> findAllByEvent_Id(Long id);
 }

@@ -5,7 +5,7 @@
 
 </head>
 <div layout:fragment="content">
-    <input id="userId" th:value="${#authentication.principal.id}" type="hidden">
+    <input id="userId" th:value="${#authentication.principal.getId()}" type="hidden">
     <main>
         <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" th:src="${#authentication.principal.imgLink}" alt="" width="215" height="250">
@@ -17,7 +17,8 @@
                     <span class="badge bg-primary rounded-pill" id="sumTickets"></span>
                 </h4>
                 <ul class="list-group mb-3" id="tickets">
-
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                    </li>
                 </ul>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Promo code">
@@ -26,25 +27,24 @@
                 <script type="text/javascript">
 
                     loadTickets();
-
-                    let id = document.getElementById("userId");
                         function loadTickets() {
+                            let id = document.getElementById("userId").value;
                             const httpRequest = new XMLHttpRequest();
-                            httpRequest.open("GET", "http://localhost:8000/getTicketByUserId/"+id, true);
+                            httpRequest.open("GET", "http://localhost:8000/getAllTicketsByUserId/"+id, true);
                             httpRequest.onreadystatechange = function () {
                                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
 
                                     let courseList = JSON.parse(httpRequest.responseText);
 
                                     let tableContent = "";
-                                    for (let i = 0;i<courseList.length;i++){
+                                    for (let i = 0;i<3;i++){
                                         tableContent += "<li class=\"list-group-item d-flex " +
                                             "\justify-content-between lh-sm\">";
                                         tableContent += "<div>\n" +
-                                            "     <h6 class=\"my-0\">"+courseList[i].primeCodeTicket+"</h6>";
-                                        tableContent += "<small class=\"text-muted\">Brief description</small>";
+                                            "     <h6 class=\"my-0\">"+courseList[i].event.eventName+"</h6>";
+                                        tableContent += "<small class=\"text-muted\">"+courseList[i].event.event_date+"</small>";
                                         tableContent += "</div>\n" +
-                                            "                        <span class=\"text-muted\">$12</span>";
+                                            "                        <span class=\"text-muted\">"+courseList[i].primeCodeTicket+"</span>";
                                     }
                                     document.getElementById("tickets").innerHTML = tableContent;
                                 }

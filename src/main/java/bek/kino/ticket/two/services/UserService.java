@@ -1,5 +1,6 @@
 package bek.kino.ticket.two.services;
 
+import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.mapper.MainUserMapper;
@@ -63,8 +64,11 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
-    public void updateUser(User user){
-        userRepository.save(user);
+    public MainUserDTO plusBalance(Balance balance){
+        User user = userRepository.findAllById(balance.getUser_id());
+        int currentBalance = user.getBalance() - balance.getBalance();
+        user.setBalance(currentBalance);
+        return mapper.toDtoUser(userRepository.save(user));
     }
 
     public MainUserDTO updateImgInProfile(ImgUpdateBody imgUpdateBody){

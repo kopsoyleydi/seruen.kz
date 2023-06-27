@@ -1,6 +1,7 @@
 package bek.kino.ticket.two.api;
 
 
+import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.services.UserService;
@@ -17,9 +18,17 @@ public class UserController {
 
     private final UserService userService;
 
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/set-img")
     public MainUserDTO updateProfileImg(@RequestBody ImgUpdateBody imgUpdateBody){
         return userService.updateImgInProfile(imgUpdateBody);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping(value = "/plusBalance")
+    public MainUserDTO plusBalance(@RequestBody Balance balance){
+        return userService.plusBalance(balance);
+    }
+
 }
