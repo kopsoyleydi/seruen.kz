@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
 
@@ -8,7 +8,8 @@
     <input id="userId" th:value="${#authentication.principal.getId()}" type="hidden">
     <main>
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" th:src="${#authentication.principal.imgLink}" alt="" width="215" height="250">
+            <img class="d-block mx-auto mb-4" th:src="${#authentication.principal.imgLink}" alt="" width="215"
+                 height="250">
         </div>
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
@@ -20,56 +21,58 @@
                     <li class="list-group-item d-flex justify-content-between lh-sm">
                     </li>
                 </ul>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Promo code">
-                        <button type="submit" class="btn btn-secondary">Redeem</button>
-                    </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Promo code">
+                    <button type="submit" class="btn btn-secondary">Redeem</button>
+                </div>
                 <script type="text/javascript">
 
                     loadTickets();
-                        function loadTickets() {
-                            let id = document.getElementById("userId").value;
-                            const httpRequest = new XMLHttpRequest();
-                            httpRequest.open("GET", "http://localhost:8000/getAllTicketsByUserId/"+id, true);
-                            httpRequest.onreadystatechange = function () {
-                                if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
 
-                                    let courseList = JSON.parse(httpRequest.responseText);
+                    function loadTickets() {
+                        let id = document.getElementById("userId").value;
+                        const httpRequest = new XMLHttpRequest();
+                        httpRequest.open("GET", "http://localhost:8000/getAllTicketsByUserId/" + id, true);
+                        httpRequest.onreadystatechange = function () {
+                            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
 
-                                    let tableContent = "";
-                                    for (let i = 0;i<3;i++){
-                                        tableContent += "<li class=\"list-group-item d-flex " +
-                                            "\justify-content-between lh-sm\">";
-                                        tableContent += "<div>\n" +
-                                            "     <h6 class=\"my-0\">"+courseList[i].event.eventName+"</h6>";
-                                        tableContent += "<small class=\"text-muted\">"+courseList[i].event.event_date+"</small>";
-                                        tableContent += "</div>\n" +
-                                            "                        <span class=\"text-muted\">"+courseList[i].primeCodeTicket+"</span>";
-                                    }
-                                    document.getElementById("tickets").innerHTML = tableContent;
+                                let courseList = JSON.parse(httpRequest.responseText);
+
+                                let tableContent = "";
+                                for (let i = 0; i < 3; i++) {
+                                    tableContent += "<li class=\"list-group-item d-flex " +
+                                        "\justify-content-between lh-sm\">";
+                                    tableContent += "<div>\n" +
+                                        "     <h6 class=\"my-0\">" + courseList[i].event.eventName + "</h6>";
+                                    tableContent += "<small class=\"text-muted\">" + courseList[i].event.event_date + "</small>";
+                                    tableContent += "</div>\n" +
+                                        "                        <span class=\"text-muted\">" + courseList[i].primeCodeTicket + "</span>";
                                 }
+                                document.getElementById("tickets").innerHTML = tableContent;
                             }
-                            httpRequest.send();
                         }
+                        httpRequest.send();
+                    }
                 </script>
             </div>
             <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Your profile information</h4>
-                    <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label for="firstName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder=""
-                                   th:value="${#authentication.principal.fullName}" required="" readonly>
-                        </div>
-                        <div class="col-12">
-                            <label for="username" class="form-label">Email</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text">@</span>
-                                <input type="text" class="form-control" id="username" th:value="${#authentication.principal.email}"
-                                       placeholder="Username" required="" readonly>
-                            </div>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label for="firstName" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder=""
+                               th:value="${#authentication.principal.fullName}" required="" readonly>
+                    </div>
+                    <div class="col-12">
+                        <label for="username" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text">@</span>
+                            <input type="text" class="form-control" id="username"
+                                   th:value="${#authentication.principal.email}"
+                                   placeholder="Username" required="" readonly>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </main>

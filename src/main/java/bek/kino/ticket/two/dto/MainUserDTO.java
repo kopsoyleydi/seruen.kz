@@ -11,11 +11,11 @@ import java.util.List;
 @Setter
 public class MainUserDTO {
 
-    private Long id;
-    private String email;
-    private String password;
-    private String fullName;
-    private String imgLink;
-    @ManyToMany
-    private List<PermissionDTO> permissions;
+	private Long id;
+	private String email;
+	private String password;
+	private String fullName;
+	private String imgLink;
+	@ManyToMany
+	private List<PermissionDTO> permissions;
 }

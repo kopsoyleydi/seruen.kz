@@ -10,9 +10,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TicketMapper {
 
-    TicketDTO toDto(Tickets tickets);
-    Tickets toModel(TicketDTO ticketDTO);
+	TicketDTO toDto(Tickets tickets);
 
-    List<TicketDTO> toDtoList(List<Tickets> list);
-    List<Tickets> toTicketList(List<TicketDTO> list);
+	Tickets toModel(TicketDTO ticketDTO);
+
+	List<TicketDTO> toDtoList(List<Tickets> list);
+
+	List<Tickets> toTicketList(List<TicketDTO> list);
 }

@@ -13,20 +13,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewRepoImpl implements ReviewRepoInterface {
 
-    private final ReviewRepository reviewRepository;
+	private final ReviewRepository reviewRepository;
 
-    @Override
-    public List<Review> getAllComments() {
-        return reviewRepository.findAll();
-    }
+	@Override
+	public List<Review> getAllComments() {
+		return reviewRepository.findAll();
+	}
 
-    @Override
-    public Review addComment(Review review) {
-        return reviewRepository.save(review);
-    }
+	@Override
+	public Review addComment(Review review) {
+		return reviewRepository.save(review);
+	}
 
-    @Override
-    public List<Review> getCommentByUserId(Long id) {
-        return reviewRepository.findAllById(id);
-    }
+	@Override
+	public List<Review> getCommentByUserId(Long id) {
+		return reviewRepository.findAllById(id);
+	}
 }

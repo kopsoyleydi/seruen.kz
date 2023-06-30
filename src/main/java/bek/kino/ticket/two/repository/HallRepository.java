@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Transactional
-public interface HallRepository extends JpaRepository<Hall,Long> {
+public interface HallRepository extends JpaRepository<Hall, Long> {
 
-    Hall findAllById(Long id);
+	Hall findAllById(Long id);
 }

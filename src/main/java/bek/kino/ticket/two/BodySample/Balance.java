@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Balance {
-    private int balance;
+	private int balance;
 
-    private Long user_id;
+	private Long user_id;
 }

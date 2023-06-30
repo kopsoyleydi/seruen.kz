@@ -11,32 +11,32 @@ import java.util.List;
 @Service
 public class TicketsRepoImpl implements TicketsRepoInterface {
 
-    @Autowired
-    private TicketsRepository ticketsRepository;
-    @Override
-    public List<Tickets> getAllTickets() {
-        return ticketsRepository.findAll();
-    }
+	@Autowired
+	private TicketsRepository ticketsRepository;
 
-    @Override
-    public Tickets getTicketById(Long id) {
-        return ticketsRepository.findTicketsById(id);
-    }
+	@Override
+	public List<Tickets> getAllTickets() {
+		return ticketsRepository.findAll();
+	}
 
-    @Override
-    public Tickets addTicket(Tickets tickets) {
-        return ticketsRepository.save(tickets);
-    }
+	@Override
+	public Tickets getTicketById(Long id) {
+		return ticketsRepository.findTicketsById(id);
+	}
+
+	@Override
+	public Tickets addTicket(Tickets tickets) {
+		return ticketsRepository.save(tickets);
+	}
 
 
+	public List<Tickets> getTicketByEventId(Long id) {
+		return ticketsRepository.findAllByEvent_Id(id);
+	}
 
-    public List<Tickets> getTicketByEventId(Long id){
-        return ticketsRepository.findAllByEvent_Id(id);
-    }
-
-    @Override
-    public List<Tickets> getAllTicketByUserId(Long id) {
-        return ticketsRepository.findAllByUserId(id);
-    }
+	@Override
+	public List<Tickets> getAllTicketByUserId(Long id) {
+		return ticketsRepository.findAllByUserId(id);
+	}
 
 }

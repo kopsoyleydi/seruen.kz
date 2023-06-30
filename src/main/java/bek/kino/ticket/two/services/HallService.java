@@ -13,17 +13,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HallService {
 
-    private final HallRepoImpl hallRepo;
+	private final HallRepoImpl hallRepo;
 
-    private final HallMapper hallMapper;
+	private final HallMapper hallMapper;
 
-    public List<HallDTO> getAllHalls(){
-        return hallMapper.toDtoList(hallRepo.getAllHalls());
-    }
-    public HallDTO addHall(HallDTO hallDTO){
-        return hallMapper.toDto(hallRepo.addHall(hallMapper.toModel(hallDTO)));
-    }
-    public HallDTO getHallById(Long id){
-        return hallMapper.toDto(hallRepo.getHallById(id));
-    }
+	public List<HallDTO> getAllHalls() {
+		return hallMapper.toDtoList(hallRepo.getAllHalls());
+	}
+
+	public HallDTO addHall(HallDTO hallDTO) {
+		return hallMapper.toDto(hallRepo.addHall(hallMapper.toModel(hallDTO)));
+	}
+
+	public HallDTO getHallById(Long id) {
+		return hallMapper.toDto(hallRepo.getHallById(id));
+	}
 }

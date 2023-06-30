@@ -1,146 +1,160 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <link rel="stylesheet" th:href="@{'/css/place.css'}">
+    <link rel="stylesheet" th:href="@{'/css/place.css'}">
 </head>
 <div layout:fragment="content">
-<div class="theatre">
-  <div class="cinema-seats left">
-    <div class="cinema-row row-1">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(1)'>1</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(2)'>2</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(3)'>3</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(4)'>4</button>
-      </div>
-        <div class="seat">
-          <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+    <div class="theatre">
+        <div class="cinema-seats left">
+            <div class="cinema-row row-1">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(1)'>1</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(2)'>2</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(3)'>3</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(4)'>4</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
+            <div class="cinema-row row-2">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(5)'>5</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(6)'>6</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(7)'>7</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(8)'>8</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
+            <div class="cinema-row row-3">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(9)'>9</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(10)'>10
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(11)'>11
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(12)'>12
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="cinema-row row-2">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(5)'>5</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(6)'>6</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(7)'>7</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm'  type="button" onclick='openCourseDetailsModal(8)'>8</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
-      </div>
-    </div>
-    <div class="cinema-row row-3">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(9)'>9</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(10)'>10</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(11)'>11</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(12)'>12</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm'  type="button" onclick='openCourseDetailsModal(0)'>no</button>
-      </div>
-    </div>
-  </div>
-  <div class="cinema-seats right">
-    <div class="cinema-row row-1">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(13)'>13</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(14)'>14</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(15)'>15</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(16)'>16</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
-      </div>
-    </div>
-    <div class="cinema-row row-2">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(17)'>17</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onplay='openCourseDetailsModal(18)'>18</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(19)'>19</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(20)'>20</button>
-      </div>
-      <div class="seat">
-      <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
-      </div>
-    </div>
-    <div class="cinema-row row-3">
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(21)'>21</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(22)'>22</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(23)'>23</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(24)'>24</button>
-      </div>
-      <div class="seat">
-        <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
-      </div>
-    </div>
-  </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+        <div class="cinema-seats right">
+            <div class="cinema-row row-1">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(13)'>13
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(14)'>14
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(15)'>15
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(16)'>16
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
+            <div class="cinema-row row-2">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(17)'>17
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onplay='openCourseDetailsModal(18)'>18</button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(19)'>19
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(20)'>20
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
+            <div class="cinema-row row-3">
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(21)'>21
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(22)'>22
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(23)'>23
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(24)'>24
+                    </button>
+                </div>
+                <div class="seat">
+                    <button class='btn btn-primary btn-sm' type="button" onclick='openCourseDetailsModal(0)'>no</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  <script type="text/javascript">
 
-  function openCourseDetailsModal(id){
-    detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
-    let seat = id;
-    detailsModal.show();
-    console.log(seat);
-  }
-</script>
+        <!-- Modal -->
+        <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            function openCourseDetailsModal(id) {
+                detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+                let seat = id;
+                detailsModal.show();
+                console.log(seat);
+            }
+        </script>
+    </div>
 </div>
-  </div>
 </html>

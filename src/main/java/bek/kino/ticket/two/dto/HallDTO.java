@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HallDTO {
-    private Long id;
-    private int place;
+	private Long id;
+	private int place;
 }

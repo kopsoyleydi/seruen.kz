@@ -14,29 +14,29 @@ import java.util.List;
 @RestController
 public class TicketController {
 
-    private final TicketsService ticketsService;
+	private final TicketsService ticketsService;
 
 
-    @GetMapping(value = "/getAllTickets")
-    public List<TicketDTO> getAllTickets(){
-        return ticketsService.getTickets();
-    }
+	@GetMapping(value = "/getAllTickets")
+	public List<TicketDTO> getAllTickets() {
+		return ticketsService.getTickets();
+	}
 
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping(value = "/addTicket")
-    public TicketDTO addTicket(@RequestBody TicketBody tickets){
-        return ticketsService.addTicket(tickets);
-    }
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/addTicket")
+	public TicketDTO addTicket(@RequestBody TicketBody tickets) {
+		return ticketsService.addTicket(tickets);
+	}
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/getTicketByUserId/{id}")
-    public TicketDTO getTicketByUserId(@PathVariable(name = "id") Long id){
-        return ticketsService.getTicketByUserId(id);
-    }
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/getTicketByUserId/{id}")
+	public TicketDTO getTicketByUserId(@PathVariable(name = "id") Long id) {
+		return ticketsService.getTicketByUserId(id);
+	}
 
-    @GetMapping(value = "/getAllTicketsByUserId/{id}")
-    public List<TicketDTO> getAllTicketByUserId(@PathVariable(name = "id") Long id){
-        return ticketsService.getAllTicketByUserId(id);
-    }
+	@GetMapping(value = "/getAllTicketsByUserId/{id}")
+	public List<TicketDTO> getAllTicketByUserId(@PathVariable(name = "id") Long id) {
+		return ticketsService.getAllTicketByUserId(id);
+	}
 }

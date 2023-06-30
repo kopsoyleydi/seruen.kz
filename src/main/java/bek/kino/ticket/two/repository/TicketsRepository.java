@@ -12,9 +12,12 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface TicketsRepository extends JpaRepository<Tickets,Long> {
-    List<Tickets> findAll();
-    Tickets findTicketsById(Long id);
-    List<Tickets> findAllByUserId(Long id);
-    List<Tickets> findAllByEvent_Id(Long id);
+public interface TicketsRepository extends JpaRepository<Tickets, Long> {
+	List<Tickets> findAll();
+
+	Tickets findTicketsById(Long id);
+
+	List<Tickets> findAllByUserId(Long id);
+
+	List<Tickets> findAllByEvent_Id(Long id);
 }

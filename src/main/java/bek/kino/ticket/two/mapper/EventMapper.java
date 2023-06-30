@@ -9,8 +9,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface EventMapper {
-    EventDTO toDto(Event event);
-    Event toModel(EventDTO eventDTO);
-    List<EventDTO> toDtoList(List<Event> list);
-    List<Event> toEventList(List<EventDTO> list);
+	EventDTO toDto(Event event);
+
+	Event toModel(EventDTO eventDTO);
+
+	List<EventDTO> toDtoList(List<Event> list);
+
+	List<Event> toEventList(List<EventDTO> list);
 }

@@ -14,15 +14,15 @@ import java.util.List;
 @RestController
 public class ReviewsController {
 
-    private final ReviewService reviewService;
+	private final ReviewService reviewService;
 
-    @GetMapping(value = "/getAllComments")
-    public List<ReviewDTO> getAllComments(){
-        return reviewService.getAllComments();
-    }
+	@GetMapping(value = "/getAllComments")
+	public List<ReviewDTO> getAllComments() {
+		return reviewService.getAllComments();
+	}
 
-    @GetMapping(value = "/getAllCommentsByUserId/{id}")
-    public List<ReviewDTO> getAllCommentByUserId(@PathVariable(name = "id")Long id){
-        return reviewService.getCommentByUserId(id);
-    }
+	@GetMapping(value = "/getAllCommentsByUserId/{id}")
+	public List<ReviewDTO> getAllCommentByUserId(@PathVariable(name = "id") Long id) {
+		return reviewService.getCommentByUserId(id);
+	}
 }

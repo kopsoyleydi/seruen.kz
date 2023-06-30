@@ -13,23 +13,25 @@ import java.util.List;
 @RestController
 public class EventController {
 
-    private final EventService eventService;
+	private final EventService eventService;
 
-    @GetMapping(value = "/getAllEvents")
-    public List<EventDTO> getAllEvents(){
-        return eventService.getAllEvents();
-    }
+	@GetMapping(value = "/getAllEvents")
+	public List<EventDTO> getAllEvents() {
+		return eventService.getAllEvents();
+	}
 
-    @PostMapping(value = "/addEvent")
-    public EventDTO addEvent(@RequestBody EventDTO eventDTO){
-        return eventService.addEvent(eventDTO);
-    }
-    @PostMapping(value = "/getEvent/{id}")
-    public EventDTO getEventById(@PathVariable(name = "id") Long id){
-        return eventService.getEventById(id);
-    }
-    @PostMapping(value = "/updateEvent")
-    public EventDTO updateEvent(@RequestBody Long id){
-        return eventService.updateEvent(id);
-    }
+	@PostMapping(value = "/addEvent")
+	public EventDTO addEvent(@RequestBody EventDTO eventDTO) {
+		return eventService.addEvent(eventDTO);
+	}
+
+	@PostMapping(value = "/getEvent/{id}")
+	public EventDTO getEventById(@PathVariable(name = "id") Long id) {
+		return eventService.getEventById(id);
+	}
+
+	@PostMapping(value = "/updateEvent")
+	public EventDTO updateEvent(@RequestBody Long id) {
+		return eventService.updateEvent(id);
+	}
 }

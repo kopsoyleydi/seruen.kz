@@ -6,13 +6,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "comment")
-public class Review extends BaseModel{
+public class Review extends BaseModel {
 
-    private String comment;
+	private String comment;
 
-    @ManyToOne
-    private Event event;
+	@ManyToOne
+	private Event event;
 
-    @ManyToOne
-    private User user;
+	@ManyToOne
+	private User user;
 }

@@ -11,11 +11,11 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 public class Permission extends BaseModel implements GrantedAuthority {
 
-    @Column(name = "role")
-    private String role;
+	@Column(name = "role")
+	private String role;
 
-    @Override
-    public String getAuthority() {
-        return this.role;
-    }
+	@Override
+	public String getAuthority() {
+		return this.role;
+	}
 }

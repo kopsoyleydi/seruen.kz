@@ -16,19 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    private final UserService userService;
+	private final UserService userService;
 
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping(value = "/set-img")
-    public MainUserDTO updateProfileImg(@RequestBody ImgUpdateBody imgUpdateBody){
-        return userService.updateImgInProfile(imgUpdateBody);
-    }
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/set-img")
+	public MainUserDTO updateProfileImg(@RequestBody ImgUpdateBody imgUpdateBody) {
+		return userService.updateImgInProfile(imgUpdateBody);
+	}
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping(value = "/plusBalance")
-    public MainUserDTO plusBalance(@RequestBody Balance balance){
-        return userService.plusBalance(balance);
-    }
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/plusBalance")
+	public MainUserDTO plusBalance(@RequestBody Balance balance) {
+		return userService.plusBalance(balance);
+	}
 
 }

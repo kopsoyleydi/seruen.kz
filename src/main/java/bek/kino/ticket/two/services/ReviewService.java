@@ -13,15 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final ReviewMapper reviewMapper;
+	private final ReviewMapper reviewMapper;
 
-    private final ReviewRepoImpl commentRepo;
+	private final ReviewRepoImpl commentRepo;
 
-    public List<ReviewDTO> getAllComments(){
-        return reviewMapper.toDtoList(commentRepo.getAllComments());
-    }
+	public List<ReviewDTO> getAllComments() {
+		return reviewMapper.toDtoList(commentRepo.getAllComments());
+	}
 
-    public List<ReviewDTO> getCommentByUserId(Long id){
-        return reviewMapper.toDtoList(commentRepo.getCommentByUserId(id));
-    }
+	public List<ReviewDTO> getCommentByUserId(Long id) {
+		return reviewMapper.toDtoList(commentRepo.getCommentByUserId(id));
+	}
 }

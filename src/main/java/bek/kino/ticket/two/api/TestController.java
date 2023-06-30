@@ -15,11 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestController {
 
-    private final TicketMapper mapper;
-    private final TicketsRepoImpl repo;
+	private final TicketMapper mapper;
+	private final TicketsRepoImpl repo;
 
-    @GetMapping(value = "/testTickets")
-    public List<TicketDTO> getTicketById(){
-        return mapper.toDtoList(repo.getTicketByEventId(5L));
-    }
+	@GetMapping(value = "/testTickets")
+	public List<TicketDTO> getTicketById() {
+		return mapper.toDtoList(repo.getTicketByEventId(5L));
+	}
 }

@@ -1,106 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div layout:fragment="content">
-  <div class="row">
-    <div class="card" style="width: 18rem;">
-      <img th:src="${event.pictureLink}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title" th:text="${event.eventName}"></h5>
-        <p class="card-text" th:text="${event.event_date}"></p>
-        <a href="#" class="btn btn-secondary" th:text="${event.price + ' t'}"></a>
-      </div>
+    <div class="row">
+        <div class="card" style="width: 18rem;">
+            <img th:src="${event.pictureLink}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${event.eventName}"></h5>
+                <p class="card-text" th:text="${event.event_date}"></p>
+                <a href="#" class="btn btn-secondary" th:text="${event.price + ' t'}"></a>
+            </div>
+        </div>
+        <div class="col ms-5" sec:authorize="hasAnyRole('ROLE_USER')">
+            <div class="row mt-3">
+                <div class="col-6" id="alert">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label>Email : </label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <input id="username" type="email" class="form-control">
+                    <input id="userId" type="hidden" th:value="${event.id}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label>Select seat : </label>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <select id="place" class="form-select">
+                        <option th:each="p : ${places}" th:text="${p}" th:value="${p}">
+
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <input readonly type="text" id="event_price"
+                           th:value="${'Стоимость одного билета '+ event.price + ' t'}"
+                           th:class="form-control">
+                    <input type="hidden" id="price" th:value="${event.price}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6" sec:authorize="isAuthenticated()">
+                    <button class="btn btn-success" onclick="addCourse()">Buy Ticket</button>
+                </div>
+                <div class="col-6" sec:authorize="isAnonymous()">
+                    <span>Вы должны зарегистрироваться или войти для покупки билета</span>
+                </div>
+            </div>
+        </div>
+        <div>
+
+        </div>
+
+        <script type="text/javascript">
+            function addCourse() {
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("POST", "/addTicket", true);
+                httpRequest.setRequestHeader("Content-Type", "application/json");
+
+                let username = document.getElementById("username");
+                let id = document.getElementById("userId");
+                let place = document.getElementById("place");
+                let price = document.getElementById("price");
+
+                let alert = document.getElementById("alert");
+
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.responseText.length <= 0) {
+                        alert.innerHTML = " <div class=\"alert alert-danger\" role=\"alert\">\n" +
+                            "            У вас не достаточно средств, или что-то пошло не так!!!\n" +
+                            "          </div>";
+                    } else if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                        username.value = "";
+                        id.value = "";
+                        place.value = "";
+                        alert.innerHTML = " <div class=\"alert alert-success\" role=\"alert\">\n" +
+                            "            Purchase completed successfully\n" +
+                            "          </div>";
+                    }
+                };
+                let body = {
+                    'username': username.value,
+                    'id': id.value,
+                    'place': place.value,
+                    'price': price.value
+                };
+                body = JSON.stringify(body);
+                httpRequest.send(body);
+            }
+        </script>
     </div>
-    <div class="col ms-5">
-      <div class="row mt-3">
-        <div class="col-6" id="alert">
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <label>Email : </label>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-6">
-        <input id="username" type="email" class="form-control">
-          <input id="userId" type="hidden" th:value="${event.id}">
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <label>Select seat : </label>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6">
-          <select id="place" class="form-select">
-            <option th:each="p : ${places}" th:text="${p}" th:value="${p}">
-
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6" >
-          <input readonly type="text" id="event_price" th:value="${'Стоимость одного билета '+ event.price + ' t'}"
-                 th:class="form-control">
-          <input type="hidden" id="price" th:value="${event.price}">
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-6" sec:authorize="isAuthenticated()">
-          <button class="btn btn-success" onclick="addCourse()">Buy Ticket</button>
-        </div>
-        <div class="col-6" sec:authorize="isAnonymous()">
-          <span>Вы должны зарегистрироваться или войти для покупки билета</span>
-      </div>
-    </div>
-  </div>
-    <div>
-
-    </div>
-
-    <script type="text/javascript">
-  function addCourse() {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.open("POST", "/addTicket", true);
-    httpRequest.setRequestHeader("Content-Type", "application/json");
-
-    let username = document.getElementById("username");
-    let id = document.getElementById("userId");
-    let place = document.getElementById("place");
-    let price = document.getElementById("price");
-
-    let alert = document.getElementById("alert");
-
-    httpRequest.onreadystatechange = function () {
-      if (httpRequest.responseText.length <= 0) {
-        alert.innerHTML = " <div class=\"alert alert-danger\" role=\"alert\">\n" +
-                "            У вас не достаточно средств, или что-то пошло не так!!!\n" +
-                "          </div>";
-      }
-      else if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-        username.value = "";
-        id.value = "";
-        place.value = "";
-        alert.innerHTML = " <div class=\"alert alert-success\" role=\"alert\">\n" +
-                "            Purchase completed successfully\n" +
-                "          </div>";
-      }
-    };
-    let body = {
-      'username':username.value,
-      'id':id.value,
-      'place':place.value,
-      'price':price.value
-    };
-    body = JSON.stringify(body);
-    httpRequest.send(body);
-  }
-</script>
-</div>
 
 </div>
 </html>

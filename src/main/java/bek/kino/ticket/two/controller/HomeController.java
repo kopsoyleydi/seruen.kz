@@ -1,4 +1,5 @@
 package bek.kino.ticket.two.controller;
+
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,17 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping(value = "/profile")
-    public String profilePage(Model model) {
-        User user = userService.getCurrentSessionUser();
-        model.addAttribute("user",user);
-        return "profile";
-    }
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/profile")
+	public String profilePage(Model model) {
+		User user = userService.getCurrentSessionUser();
+		model.addAttribute("user", user);
+		return "profile";
+	}
 
 
 //    @PreAuthorize("isAuthenticated()")
@@ -38,44 +39,44 @@ public class HomeController {
 //    }
 
 
-    @PostMapping(value = "/to-sign-up")
-    public String toSignUp(@RequestParam(name = "user_email") String email,
-                           @RequestParam(name = "user_password") String password,
-                           @RequestParam(name = "user_repeat_password") String repeatPassword,
-                           @RequestParam(name = "user_full_name") String fullName) {
-        if (password.equals(repeatPassword)) {
-            User user = new User();
-            user.setEmail(email);
-            user.setFullName(fullName);
-            user.setPassword(password);
-            User newUser = userService.addUser(user);
-            if (newUser != null) {
-                return "redirect:/sign-up-page?success";
-            } else {
-                return "redirect:/sign-up-page?emailerror";
-            }
-        } else {
-            return "redirect:/sign-up-page?passworderror";
-        }
-    }
+	@PostMapping(value = "/to-sign-up")
+	public String toSignUp(@RequestParam(name = "user_email") String email,
+	                       @RequestParam(name = "user_password") String password,
+	                       @RequestParam(name = "user_repeat_password") String repeatPassword,
+	                       @RequestParam(name = "user_full_name") String fullName) {
+		if (password.equals(repeatPassword)) {
+			User user = new User();
+			user.setEmail(email);
+			user.setFullName(fullName);
+			user.setPassword(password);
+			User newUser = userService.addUser(user);
+			if (newUser != null) {
+				return "redirect:/sign-up-page?success";
+			} else {
+				return "redirect:/sign-up-page?emailerror";
+			}
+		} else {
+			return "redirect:/sign-up-page?passworderror";
+		}
+	}
 
-    @PostMapping(value = "/to-update-password")
-    public String toUpdatePassword(
-            @RequestParam(name = "user_old_password") String oldPassword,
-            @RequestParam(name = "user_new_password") String newPassword,
-            @RequestParam(name = "user_repeat_new_password") String repeatNewPassword) {
+	@PostMapping(value = "/to-update-password")
+	public String toUpdatePassword(
+			@RequestParam(name = "user_old_password") String oldPassword,
+			@RequestParam(name = "user_new_password") String newPassword,
+			@RequestParam(name = "user_repeat_new_password") String repeatNewPassword) {
 
-        if (newPassword.equals(repeatNewPassword)) {
+		if (newPassword.equals(repeatNewPassword)) {
 
-            User user = userService.updatePassword(newPassword, oldPassword);
-            if (user != null) {
-                return "redirect:/update-password-page?success";
-            } else {
-                return "redirect:/update-password-page?oldpassworderror";
-            }
+			User user = userService.updatePassword(newPassword, oldPassword);
+			if (user != null) {
+				return "redirect:/update-password-page?success";
+			} else {
+				return "redirect:/update-password-page?oldpassworderror";
+			}
 
-        } else {
-            return "redirect:/update-password-page?passwordmismatch";
-        }
-    }
+		} else {
+			return "redirect:/update-password-page?passwordmismatch";
+		}
+	}
 }

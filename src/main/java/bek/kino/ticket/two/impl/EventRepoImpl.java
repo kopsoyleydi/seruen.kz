@@ -12,24 +12,25 @@ import java.util.List;
 @Service
 public class EventRepoImpl implements EventRepoInterface {
 
-    private final EventRepository eventRepository;
-    @Override
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
-    }
+	private final EventRepository eventRepository;
 
-    @Override
-    public Event addEvent(Event event) {
-        return eventRepository.save(event);
-    }
+	@Override
+	public List<Event> getAllEvents() {
+		return eventRepository.findAll();
+	}
 
-    @Override
-    public Event getEventById(Long id) {
-        return eventRepository.findAllById(id);
-    }
+	@Override
+	public Event addEvent(Event event) {
+		return eventRepository.save(event);
+	}
 
-    @Override
-    public Event updateEvent(Event event) {
-        return eventRepository.save(event);
-    }
+	@Override
+	public Event getEventById(Long id) {
+		return eventRepository.findAllById(id);
+	}
+
+	@Override
+	public Event updateEvent(Event event) {
+		return eventRepository.save(event);
+	}
 }

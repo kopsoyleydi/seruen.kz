@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface HallRepoInterface {
 
-    List<Hall> getAllHalls();
-    Hall addHall(Hall hall);
+	List<Hall> getAllHalls();
 
-    Hall getHallById(Long id);
+	Hall addHall(Hall hall);
+
+	Hall getHallById(Long id);
 }

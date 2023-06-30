@@ -17,40 +17,40 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public UserService userService(){
-        return new UserService();
-    }
+	@Bean
+	public UserService userService() {
+		return new UserService();
+	}
 
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.exceptionHandling().accessDeniedPage("/403-page");
+		http.exceptionHandling().accessDeniedPage("/403-page");
 
-        AuthenticationManagerBuilder builder =
-                http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.userDetailsService(userService()).passwordEncoder(passwordEncoder());
+		AuthenticationManagerBuilder builder =
+				http.getSharedObject(AuthenticationManagerBuilder.class);
+		builder.userDetailsService(userService()).passwordEncoder(passwordEncoder());
 
-        http.formLogin()
-                .loginPage("/sign-in-page")  // "/sign-in-page" Controller page
-                .loginProcessingUrl("/to-enter") // <form action = "/to-enter" method = "post">
-                .usernameParameter("user_email") // <input type = "email" name = "user_email">
-                .passwordParameter("user_password") // <input type = "password" name = "user_password">
-                .defaultSuccessUrl("/profile") // reponse.sendRedirect("/profile")
-                .failureUrl("/sign-in-page?autherror");
+		http.formLogin()
+				.loginPage("/sign-in-page")  // "/sign-in-page" Controller page
+				.loginProcessingUrl("/to-enter") // <form action = "/to-enter" method = "post">
+				.usernameParameter("user_email") // <input type = "email" name = "user_email">
+				.passwordParameter("user_password") // <input type = "password" name = "user_password">
+				.defaultSuccessUrl("/profile") // reponse.sendRedirect("/profile")
+				.failureUrl("/sign-in-page?autherror");
 
-        http.logout()
-                .logoutUrl("/sign-out") // post request to /sign-out
-                .logoutSuccessUrl("/sign-in-page");
+		http.logout()
+				.logoutUrl("/sign-out") // post request to /sign-out
+				.logoutSuccessUrl("/sign-in-page");
 
-        http.csrf().disable();
+		http.csrf().disable();
 
-        return http.build();
-    }
+		return http.build();
+	}
 }

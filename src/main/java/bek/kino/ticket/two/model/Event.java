@@ -14,19 +14,19 @@ import java.util.List;
 @Table(name = "events")
 @Getter
 @Setter
-public class Event extends BaseModel{
+public class Event extends BaseModel {
 
-    private String eventName;
+	private String eventName;
 
-    private String event_date;
+	private String event_date;
 
-    private String author;
+	private String author;
 
-    private String pictureLink;
+	private String pictureLink;
 
-    @ManyToOne
-    private Hall hall;
+	@ManyToOne
+	private Hall hall;
 
-    private int price;
+	private int price;
 
 }

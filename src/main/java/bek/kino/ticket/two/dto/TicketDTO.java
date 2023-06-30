@@ -8,13 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TicketDTO {
-    private Long id;
-    private Long primeCodeTicket;
+	private Long id;
+	private Long primeCodeTicket;
 
-    @ManyToOne
-    private EventDTO event;
-    @ManyToOne
-    private UserDTO user;
+	@ManyToOne
+	private EventDTO event;
+	@ManyToOne
+	private UserDTO user;
 
-    private int place;
+	private int place;
 }

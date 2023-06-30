@@ -8,14 +8,14 @@ import lombok.Setter;
 @Setter
 public class EventDTO {
 
-    private Long id;
-    private String eventName;
-    private String author;
-    private String event_date;
-    private String pictureLink;
+	private Long id;
+	private String eventName;
+	private String author;
+	private String event_date;
+	private String pictureLink;
 
-    private int price;
-    @ManyToOne
-    private HallDTO hall;
+	private int price;
+	@ManyToOne
+	private HallDTO hall;
 
 }

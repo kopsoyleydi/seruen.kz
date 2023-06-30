@@ -15,56 +15,56 @@ import java.util.List;
 @Setter
 public class User extends BaseModel implements UserDetails {
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "email")
+	private String email;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "password")
+	private String password;
 
-    @Column(name = "full_name")
-    private String fullName;
+	@Column(name = "full_name")
+	private String fullName;
 
-    @Column(name = "img_link")
-    private String imgLink;
+	@Column(name = "img_link")
+	private String imgLink;
 
-    @Column(name = "balance")
-    private int balance;
+	@Column(name = "balance")
+	private int balance;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Permission> permissions;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Permission> permissions;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.permissions;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.permissions;
+	}
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
+	@Override
+	public String getPassword() {
+		return this.password;
+	}
 
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

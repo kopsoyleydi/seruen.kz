@@ -11,7 +11,7 @@ import lombok.Setter;
 @Table(name = "halls")
 @Getter
 @Setter
-public class Hall extends BaseModel{
-    private int place;
+public class Hall extends BaseModel {
+	private int place;
 
 }

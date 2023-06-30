@@ -8,17 +8,17 @@ import lombok.Setter;
 @Table(name = "tickets")
 @Getter
 @Setter
-public class Tickets extends BaseModel{
+public class Tickets extends BaseModel {
 
-    @ManyToOne
-    private Event event;
+	@ManyToOne
+	private Event event;
 
-    @ManyToOne
-    private User user;
+	@ManyToOne
+	private User user;
 
-    @Column(name = "prime_code_ticket")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long primeCodeTicket;
+	@Column(name = "prime_code_ticket")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long primeCodeTicket;
 
-    private int place;
+	private int place;
 }

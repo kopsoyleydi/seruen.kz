@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "http://www.thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>kino.kz</title>
-    <link rel="stylesheet" type="text/css" th:href = "@{'/css/bootstrap.min.css'}">
+    <link rel="stylesheet" type="text/css" th:href="@{'/css/bootstrap.min.css'}">
     <link rel="icon" href="https://cdn.kino.kz/site/kino-kz-new-logo.svg">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="nav" style="font-family: sans-serif,'Maiandra GD'">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{'/'}">kino.kz</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -27,10 +28,11 @@
                     <a class="nav-link" th:href="@{'/sign-up-page'}">Sign Up</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{'/admin-panel'}">Admin Page</a>
+                    <a class="nav-link" th:href="@{'/admin-event'}">Events</a>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
                         <span th:text="${#authentication.principal.fullName}"></span>
                     </a>
                     <ul class="dropdown-menu">
@@ -38,7 +40,9 @@
                         <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
                         <li><a class="dropdown-item" th:href="@{'/my_tickets'}">My tickets</a></li>
                         <li><a class="dropdown-item" th:href="@{'/update-password-page'}">Update Password</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <form th:action="@{'/sign-out'}" method="post">
                                 <button class="dropdown-item">Sign Out</button>
@@ -64,7 +68,9 @@
 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
         <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            <svg class="bi" width="30" height="24">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
         </a>
         <span class="mb-3 mb-md-0 text-body-secondary">© 2023 Company, Inc</span>
     </div>
@@ -73,5 +79,5 @@
     </ul>
 </footer>
 </body>
-<script type="text/javascript" th:src = "@{'/js/bootstrap.bundle.js'}"></script>
+<script type="text/javascript" th:src="@{'/js/bootstrap.bundle.js'}"></script>
 </html>

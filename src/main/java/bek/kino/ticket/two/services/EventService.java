@@ -12,22 +12,24 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class EventService {
-    private final EventRepoImpl eventRepo;
+	private final EventRepoImpl eventRepo;
 
-    private final EventMapper eventMapper;
+	private final EventMapper eventMapper;
 
-    public List<EventDTO> getAllEvents(){
-        return eventMapper.toDtoList(eventRepo.getAllEvents());
-    }
+	public List<EventDTO> getAllEvents() {
+		return eventMapper.toDtoList(eventRepo.getAllEvents());
+	}
 
-    public  EventDTO addEvent(EventDTO eventDTO){
-        return eventMapper.toDto(eventRepo.addEvent(eventMapper.toModel(eventDTO)));
-    }
-    public EventDTO getEventById(Long id){
-        return eventMapper.toDto(eventRepo.getEventById(id));
-    }
-    public EventDTO updateEvent(Long id){
-        EventDTO eventDTO = eventMapper.toDto(eventRepo.getEventById(id));
-        return eventMapper.toDto(eventRepo.updateEvent(eventMapper.toModel(eventDTO)));
-    }
+	public EventDTO addEvent(EventDTO eventDTO) {
+		return eventMapper.toDto(eventRepo.addEvent(eventMapper.toModel(eventDTO)));
+	}
+
+	public EventDTO getEventById(Long id) {
+		return eventMapper.toDto(eventRepo.getEventById(id));
+	}
+
+	public EventDTO updateEvent(Long id) {
+		EventDTO eventDTO = eventMapper.toDto(eventRepo.getEventById(id));
+		return eventMapper.toDto(eventRepo.updateEvent(eventMapper.toModel(eventDTO)));
+	}
 }

@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TicketBody {
-    private String username;
-    private Long id;
-    private int place;
+	private String username;
+	private Long id;
+	private int place;
 
-    private int price;
+	private int price;
 
 }

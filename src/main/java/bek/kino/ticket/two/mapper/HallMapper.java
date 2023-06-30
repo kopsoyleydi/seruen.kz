@@ -9,8 +9,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface HallMapper {
-    HallDTO toDto(Hall hall);
-    Hall toModel(HallDTO hallDTO);
-    List<HallDTO> toDtoList(List<Hall> list);
-    List<Hall> toTicketList(List<HallDTO> list);
+	HallDTO toDto(Hall hall);
+
+	Hall toModel(HallDTO hallDTO);
+
+	List<HallDTO> toDtoList(List<Hall> list);
+
+	List<Hall> toTicketList(List<HallDTO> list);
 }

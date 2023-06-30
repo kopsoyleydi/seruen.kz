@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class UserDTO {
 
-    private String email;
-    private String fullName;
-    private String imgLink;
+	private String email;
+	private String fullName;
+	private String imgLink;
 }

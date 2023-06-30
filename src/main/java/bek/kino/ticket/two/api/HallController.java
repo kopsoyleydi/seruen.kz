@@ -12,15 +12,15 @@ import java.util.List;
 @RestController
 public class HallController {
 
-    private final HallService hallService;
+	private final HallService hallService;
 
-    @GetMapping(value = "/getAllHalls")
-    public List<HallDTO> getAllHalls(){
-        return hallService.getAllHalls();
-    }
+	@GetMapping(value = "/getAllHalls")
+	public List<HallDTO> getAllHalls() {
+		return hallService.getAllHalls();
+	}
 
-    @PostMapping(value = "/addHall/{id}")
-    public HallDTO addHall(@PathVariable(name = "id") Long id){
-        return hallService.getHallById(id);
-    }
+	@PostMapping(value = "/addHall/{id}")
+	public HallDTO addHall(@PathVariable(name = "id") Long id) {
+		return hallService.getHallById(id);
+	}
 }
