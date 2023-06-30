@@ -2,12 +2,10 @@ package bek.kino.ticket.two.controller;
 
 
 import bek.kino.ticket.two.dto.EventDTO;
+import bek.kino.ticket.two.dto.HallDTO;
 import bek.kino.ticket.two.dto.TicketDTO;
 import bek.kino.ticket.two.model.User;
-import bek.kino.ticket.two.services.EventService;
-import bek.kino.ticket.two.services.ListsForData;
-import bek.kino.ticket.two.services.TicketsService;
-import bek.kino.ticket.two.services.UserService;
+import bek.kino.ticket.two.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,6 +26,8 @@ public class PagesController {
 	private final TicketsService ticketsService;
 
 	private final UserService userService;
+
+	private final HallService hallService;
 
 
 	@GetMapping(value = "/")
@@ -90,5 +90,15 @@ public class PagesController {
 	@GetMapping(value = "/admin-event")
 	public String adminPanel() {
 		return "adminEvent";
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+	@GetMapping(value = "/admin-event-detail")
+	public String adminEventDetail(@PathVariable(name = "id") Long id, Model model){
+		EventDTO eventDTO = eventService.getEventById(id);
+		List<HallDTO> halls = hallService.getAllHalls();
+		model.addAttribute("event",eventDTO);
+		model.addAttribute("halls",halls);
+		return "admin-event-detail";
 	}
 }
