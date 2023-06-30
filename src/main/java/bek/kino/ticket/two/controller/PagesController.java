@@ -9,7 +9,6 @@ import bek.kino.ticket.two.services.ListsForData;
 import bek.kino.ticket.two.services.TicketsService;
 import bek.kino.ticket.two.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,5 +79,10 @@ public class PagesController {
         User user = userService.getCurrentSessionUser();
         model.addAttribute("user",user);
         return "MyTickets";
+    }
+
+    @GetMapping(value = "/admin-panel")
+    public String adminPanel(){
+        return "adminPanel";
     }
 }

@@ -28,4 +28,8 @@ public class EventController {
     public EventDTO getEventById(@PathVariable(name = "id") Long id){
         return eventService.getEventById(id);
     }
+    @PostMapping(value = "/updateEvent")
+    public EventDTO updateEvent(@RequestBody Long id){
+        return eventService.updateEvent(id);
+    }
 }

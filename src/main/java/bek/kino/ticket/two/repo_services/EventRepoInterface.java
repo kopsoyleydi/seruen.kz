@@ -8,4 +8,5 @@ public interface EventRepoInterface {
     List<Event> getAllEvents();
     Event addEvent(Event event);
     Event getEventById(Long id);
+    Event updateEvent(Event event);
 }

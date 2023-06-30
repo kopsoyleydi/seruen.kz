@@ -26,4 +26,8 @@ public class EventService {
     public EventDTO getEventById(Long id){
         return eventMapper.toDto(eventRepo.getEventById(id));
     }
+    public EventDTO updateEvent(Long id){
+        EventDTO eventDTO = eventMapper.toDto(eventRepo.getEventById(id));
+        return eventMapper.toDto(eventRepo.updateEvent(eventMapper.toModel(eventDTO)));
+    }
 }

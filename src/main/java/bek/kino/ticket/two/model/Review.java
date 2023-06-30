@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "comment")
-public class Comment extends BaseModel{
+public class Review extends BaseModel{
 
     private String comment;
 

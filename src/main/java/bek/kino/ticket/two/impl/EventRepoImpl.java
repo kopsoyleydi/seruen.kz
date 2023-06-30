@@ -27,4 +27,9 @@ public class EventRepoImpl implements EventRepoInterface {
     public Event getEventById(Long id) {
         return eventRepository.findAllById(id);
     }
+
+    @Override
+    public Event updateEvent(Event event) {
+        return eventRepository.save(event);
+    }
 }
