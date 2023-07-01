@@ -95,19 +95,19 @@ public class PagesController {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value = "/admin-event-detail/{id}")
-	public String adminEventDetail(@PathVariable(name = "id") Long id, Model model){
+	public String adminEventDetail(@PathVariable(name = "id") Long id, Model model) {
 		return "admin-event-detail";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value = "/events-history")
-	public String eventsHistory(){
+	public String eventsHistory() {
 		return "eventsHistory";
 	}
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/add-balance")
-	public String addBalanceToUser(){
+	public String addBalanceToUser() {
 		return "Balance";
 	}
 }

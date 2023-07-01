@@ -32,18 +32,6 @@ public class HomeController {
 	}
 
 
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping(value = "/set-image")
-//    public String setImg(@RequestParam(name = "image_link") String link,
-//                         @RequestParam(name = "user_email") String username){
-//        User user = null;
-//        user = (User) userService.loadUserByUsername(username);
-//        user.setImgLink(link);
-//        userService.updateUser(user);
-//        return "redirect:/profile";
-//    }
-
-
 	@PostMapping(value = "/to-sign-up")
 	public String toSignUp(@RequestParam(name = "user_email") String email,
 	                       @RequestParam(name = "user_password") String password,
@@ -54,6 +42,8 @@ public class HomeController {
 			user.setEmail(email);
 			user.setFullName(fullName);
 			user.setPassword(password);
+			user.setImgLink(
+					"https://yt3.ggpht.com/a/AGF-l78RCnBXwItPz7NOMEmGVDdZ6Qaoss63865a8Q=s900-c-k-c0xffffffff-no-rj-mo");
 			Permission permission = repo.getPermissionById(3L);
 			List<Permission> permissionList = new ArrayList<>();
 			permissionList.add(permission);

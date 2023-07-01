@@ -70,20 +70,23 @@
                         <div class="input-group has-validation">
                             <span class="input-group-text">@</span>
                             <input type="text" class="form-control" id="username"
-                                    required="" readonly>
+                                   required="" readonly>
                         </div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
                             Update avatar
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Avatar</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row mt-2">
@@ -92,15 +95,16 @@
                                             </div>
                                         </div>
                                         <div class="row mt-0 mb-2">
-                                        <div class="col-11 ms-3">
-                                            <input type="text" id="newImage" class="form-control">
+                                            <div class="col-11 ms-3">
+                                                <input type="text" id="newImage" class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button  class="btn btn-success" onclick="setImg()">Update avatar</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button class="btn btn-success" onclick="setImg()">Update avatar</button>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +134,7 @@
                         httpRequest.send();
                     }
 
-                    function setImg(){
+                    function setImg() {
                         const httpRequest = new XMLHttpRequest();
                         httpRequest.open("POST", "http://localhost:8000/set-img", true);
                         httpRequest.setRequestHeader("Content-Type", "application/json");
@@ -144,8 +148,8 @@
                             }
                         };
                         let body = {
-                            'link':imgLink.value,
-                            'userEmail':username.value
+                            'link': imgLink.value,
+                            'userEmail': username.value
                         };
                         body = JSON.stringify(body);
                         httpRequest.send(body);
