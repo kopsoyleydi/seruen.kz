@@ -93,12 +93,8 @@ public class PagesController {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	@GetMapping(value = "/admin-event-detail")
+	@GetMapping(value = "/admin-event-detail/{id}")
 	public String adminEventDetail(@PathVariable(name = "id") Long id, Model model){
-		EventDTO eventDTO = eventService.getEventById(id);
-		List<HallDTO> halls = hallService.getAllHalls();
-		model.addAttribute("event",eventDTO);
-		model.addAttribute("halls",halls);
 		return "admin-event-detail";
 	}
 }

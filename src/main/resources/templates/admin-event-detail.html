@@ -4,48 +4,184 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div layout:fragment="content">
     <div class="row">
-        <div class="card" style="width: 18rem;">
-            <img th:src="${event.pictureLink}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${event.eventName}"></h5>
-                <p class="card-text" th:text="${event.event_date}"></p>
-                <a href="#" class="btn btn-secondary" th:text="${event.price + ' t'}"></a>
+        <div class="card" style="width: 18rem;" id="event_card">
+
+        </div>
+        <div class="col ms-5">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Update event
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Update event</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="detail_body">
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Author : </label>
+                                </div>
+                            </div>
+                            <input type="hidden" id="event_id">
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <input type="text" class="form-control"
+                                           id="event_author">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Event name : </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <input type="text" class="form-control"
+                                           id="event_name">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Event date : </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <input type="date" class="form-control"
+                                           id="event_date">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Picture Link : </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <input type="text" class="form-control"
+                                           id="event_picture">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Price : </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <input type="number" class="form-control"
+                                           id="event_price">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <label>Select hall : </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <select class="form-select" id="event_hall">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button onclick="updateEvent()" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-
         <script type="text/javascript">
+
+            link = window.location.pathname.replace(/\D/g, '');
+            console.log(link);
+
+            loadEvent();
+
+
+            let eventId = document.getElementById("event_id");
+            let eventName = document.getElementById("event_name");
+            let eventAuthor = document.getElementById("event_author");
+            let eventDate = document.getElementById("event_date");
+            let eventPicture = document.getElementById("event_picture");
+            let eventPrice = document.getElementById("event_price");
+            let eventHallId = '';
+            let Hall = document.getElementById("event_hall");
+
+
+            function loadEvent() {
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("GET", "http://localhost:8000/events/getEvent/" + link, true);
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                        let courseList = JSON.parse(httpRequest.responseText);
+                        console.log(courseList);
+                        let eventContent = "";
+
+                        eventContent += "<img src=\"" + courseList.pictureLink + "\" class=\"card-img-top\" alt=\"...\">\n" +
+                            "            <div class=\"card-body\">\n" +
+                            "                <h5 class=\"card-title\">" + courseList.author + "</h5>\n" +
+                            "                <p class=\"card-text\">" + courseList.eventName + "</p>\n" +
+                            "                <a href=\"#\" class=\"btn btn-secondary\">" + courseList.price + "</a>\n" +
+                            "            </div>";
+                        eventId.value = courseList.id;
+                        eventName.value = courseList.eventName;
+                        eventDate.value = courseList.event_date;
+                        eventAuthor.value = courseList.author;
+                        eventPicture.value = courseList.pictureLink;
+                        eventPrice.value = courseList.price;
+                        eventHallId = courseList.hall.id;
+                        document.getElementById("event_card").innerHTML = eventContent;
+                    }
+                }
+                httpRequest.send();
+            }
+
+            loadHalls();
+
+            function loadHalls() {
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("GET", "http://localhost:8000/getAllHalls", true);
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+
+                        let hallList = JSON.parse(httpRequest.responseText);
+
+                        let halls = "";
+
+                        for (let i = 0; i < hallList.length; i++) {
+                            halls += "<option value='" + hallList[i].id + "' selected = '" + (Hall.value !== hallList[i].id ? '' : 'selected') + "''>" + hallList[i].id + "</option>";
+                        }
+                        Hall.innerHTML = halls;
+                    }
+                }
+                httpRequest.send();
+            }
+
             function updateEvent() {
                 const httpRequest = new XMLHttpRequest();
-                httpRequest.open("POST", "/addTicket", true);
+                httpRequest.open("POST", "http://localhost:8000/events/updateEvent", true);
                 httpRequest.setRequestHeader("Content-Type", "application/json");
-
-                let username = document.getElementById("username");
-                let id = document.getElementById("userId");
-                let place = document.getElementById("place");
-                let price = document.getElementById("price");
-
-                let alert = document.getElementById("alert");
-
                 httpRequest.onreadystatechange = function () {
-                    if (httpRequest.responseText.length <= 0) {
-                        alert.innerHTML = " <div class=\"alert alert-danger\" role=\"alert\">\n" +
-                            "            У вас не достаточно средств, или что-то пошло не так!!!\n" +
-                            "          </div>";
-                    } else if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                        username.value = "";
-                        id.value = "";
-                        place.value = "";
-                        alert.innerHTML = " <div class=\"alert alert-success\" role=\"alert\">\n" +
-                            "            Purchase completed successfully\n" +
-                            "          </div>";
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                        window.location.reload();
                     }
                 };
                 let body = {
-                    'username': username.value,
-                    'id': id.value,
-                    'place': place.value,
-                    'price': price.value
+                    'id': eventId.value,
+                    'eventName': eventName.value,
+                    'author': eventAuthor.value,
+                    'event_date': eventDate.value,
+                    'pictureLink': eventPicture.value,
+                    'price': eventPrice.value,
+                    'hall_id': Hall.value
                 };
                 body = JSON.stringify(body);
                 httpRequest.send(body);

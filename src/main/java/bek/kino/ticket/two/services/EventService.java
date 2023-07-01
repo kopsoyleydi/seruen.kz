@@ -1,9 +1,13 @@
 package bek.kino.ticket.two.services;
 
 
+import bek.kino.ticket.two.BodySample.EventSample;
 import bek.kino.ticket.two.dto.EventDTO;
 import bek.kino.ticket.two.impl.EventRepoImpl;
+import bek.kino.ticket.two.impl.HallRepoImpl;
 import bek.kino.ticket.two.mapper.EventMapper;
+import bek.kino.ticket.two.model.Event;
+import bek.kino.ticket.two.model.Hall;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import java.util.List;
 public class EventService {
 	private final EventRepoImpl eventRepo;
 
+	private final HallRepoImpl hallRepo;
 	private final EventMapper eventMapper;
 
 	public List<EventDTO> getAllEvents() {
@@ -28,8 +33,16 @@ public class EventService {
 		return eventMapper.toDto(eventRepo.getEventById(id));
 	}
 
-	public EventDTO updateEvent(Long id) {
-		EventDTO eventDTO = eventMapper.toDto(eventRepo.getEventById(id));
-		return eventMapper.toDto(eventRepo.updateEvent(eventMapper.toModel(eventDTO)));
+	public EventDTO updateEvent(EventSample eventSample) {
+		Event event = new Event();
+		event.setId(eventSample.getId());
+		event.setAuthor(eventSample.getAuthor());
+		event.setEvent_date(eventSample.getEvent_date());
+		event.setEventName(eventSample.getEventName());
+		event.setPrice(eventSample.getPrice());
+		Hall hall = hallRepo.getHallById(eventSample.getHall_id());
+		event.setHall(hall);
+		event.setPictureLink(eventSample.getPictureLink());
+		return eventMapper.toDto(eventRepo.updateEvent(event));
 	}
 }

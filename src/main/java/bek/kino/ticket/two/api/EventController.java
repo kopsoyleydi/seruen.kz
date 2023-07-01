@@ -1,6 +1,7 @@
 package bek.kino.ticket.two.api;
 
 
+import bek.kino.ticket.two.BodySample.EventSample;
 import bek.kino.ticket.two.dto.EventDTO;
 import bek.kino.ticket.two.services.EventService;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +26,13 @@ public class EventController {
 		return eventService.addEvent(eventDTO);
 	}
 
-	@PostMapping(value = "/getEvent/{id}")
+	@GetMapping(value = "/getEvent/{id}")
 	public EventDTO getEventById(@PathVariable(name = "id") Long id) {
 		return eventService.getEventById(id);
 	}
 
 	@PostMapping(value = "/updateEvent")
-	public EventDTO updateEvent(@RequestBody Long id) {
-		return eventService.updateEvent(id);
+	public EventDTO updateEvent(@RequestBody EventSample eventSample) {
+		return eventService.updateEvent(eventSample);
 	}
 }

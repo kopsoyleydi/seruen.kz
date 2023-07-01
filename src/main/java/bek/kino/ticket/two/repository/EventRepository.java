@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface EventRepository extends JpaRepository<Event, Long> {
-	Event findAllById(Long eventId);
+	Event findAllById(Long id);
 
 	List<Event> findAll();
 
