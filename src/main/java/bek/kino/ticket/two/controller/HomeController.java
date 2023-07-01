@@ -1,5 +1,7 @@
 package bek.kino.ticket.two.controller;
 
+import bek.kino.ticket.two.impl.PermissionRepoImpl;
+import bek.kino.ticket.two.model.Permission;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -17,6 +20,8 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private PermissionRepoImpl repo;
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/profile")
@@ -49,6 +54,10 @@ public class HomeController {
 			user.setEmail(email);
 			user.setFullName(fullName);
 			user.setPassword(password);
+			Permission permission = repo.getPermissionById(3L);
+			List<Permission> permissionList = new ArrayList<>();
+			permissionList.add(permission);
+			user.setPermissions(permissionList);
 			User newUser = userService.addUser(user);
 			if (newUser != null) {
 				return "redirect:/sign-up-page?success";

@@ -30,7 +30,8 @@ public class PagesController {
 	private final HallService hallService;
 
 
-	@GetMapping(value = "/")
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/home")
 	public String indexPage(Model model) {
 		return "index";
 	}
