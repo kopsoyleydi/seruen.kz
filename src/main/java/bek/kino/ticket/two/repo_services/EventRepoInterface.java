@@ -12,4 +12,6 @@ public interface EventRepoInterface {
 	Event getEventById(Long id);
 
 	Event updateEvent(Event event);
+
+	List<Event> getAllActivityEvents();
 }

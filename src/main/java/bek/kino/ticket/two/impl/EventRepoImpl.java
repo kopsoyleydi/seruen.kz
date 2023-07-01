@@ -33,4 +33,9 @@ public class EventRepoImpl implements EventRepoInterface {
 	public Event updateEvent(Event event) {
 		return eventRepository.save(event);
 	}
+
+	@Override
+	public List<Event> getAllActivityEvents() {
+		return eventRepository.findAllActivity();
+	}
 }

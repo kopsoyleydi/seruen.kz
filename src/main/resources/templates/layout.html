@@ -38,7 +38,11 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" th:href="@{'/profile'}">Profile</a></li>
-                        <li><a class="dropdown-item" th:href="@{'/my_tickets'}">My tickets</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/add-balance'}">My balance</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/my_tickets'}"
+                               sec:authorize="hasAnyRole('ROLE_USER')">My tickets</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/events-history'}"
+                               sec:authorize="hasAnyRole('ROLE_ADMIN')">Events History</a></li>
                         <li><a class="dropdown-item" th:href="@{'/update-password-page'}">Update Password</a></li>
                         <li>
                             <hr class="dropdown-divider">

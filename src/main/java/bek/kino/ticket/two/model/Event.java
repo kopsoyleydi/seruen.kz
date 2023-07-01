@@ -29,4 +29,6 @@ public class Event extends BaseModel {
 
 	private int price;
 
+	private String status;
+
 }

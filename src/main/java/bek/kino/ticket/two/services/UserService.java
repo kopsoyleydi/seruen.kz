@@ -3,7 +3,10 @@ package bek.kino.ticket.two.services;
 import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
 import bek.kino.ticket.two.dto.MainUserDTO;
+import bek.kino.ticket.two.dto.UserDTO;
+import bek.kino.ticket.two.impl.UserRepoImpl;
 import bek.kino.ticket.two.mapper.MainUserMapper;
+import bek.kino.ticket.two.mapper.UserMapper;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,12 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+
 	@Autowired
 	private MainUserMapper mapper;
+
+	@Autowired
+	private UserMapper userMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -64,10 +71,9 @@ public class UserService implements UserDetailsService {
 		return null;
 	}
 
-	public MainUserDTO plusBalance(Balance balance) {
+	public MainUserDTO topToBalance(Balance balance){
 		User user = userRepository.findAllById(balance.getUser_id());
-		int currentBalance = user.getBalance() - balance.getBalance();
-		user.setBalance(currentBalance);
+		user.setBalance(balance.getBalance() + user.getBalance());
 		return mapper.toDtoUser(userRepository.save(user));
 	}
 
@@ -76,5 +82,9 @@ public class UserService implements UserDetailsService {
 		user = (User) loadUserByUsername(imgUpdateBody.userEmail);
 		user.setImgLink(imgUpdateBody.link);
 		return mapper.toDtoUser(userRepository.save(user));
+	}
+
+	public UserDTO getUserById(Long id){
+		return userMapper.toDtoUser(userRepository.findAllById(id));
 	}
 }

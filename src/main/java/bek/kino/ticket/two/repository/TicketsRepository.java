@@ -20,4 +20,7 @@ public interface TicketsRepository extends JpaRepository<Tickets, Long> {
 	List<Tickets> findAllByUserId(Long id);
 
 	List<Tickets> findAllByEvent_Id(Long id);
+
+	@Query(value = "SELECT e FROM Tickets e WHERE e.user.id = :id and e.event.status = 'true'")
+	List<Tickets> getAllActivityTicketsByUserId(Long id);
 }

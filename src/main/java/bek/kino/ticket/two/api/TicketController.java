@@ -39,4 +39,9 @@ public class TicketController {
 	public List<TicketDTO> getAllTicketByUserId(@PathVariable(name = "id") Long id) {
 		return ticketsService.getAllTicketByUserId(id);
 	}
+
+	@GetMapping(value = "/getAllActivityTicketsByUserId/{id}")
+	public List<TicketDTO> getAllActivityTicketsByUserId(@PathVariable(name = "id")Long id){
+		return ticketsService.getAllActivityTicketsByUserId(id);
+	}
 }

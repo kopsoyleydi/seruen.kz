@@ -18,4 +18,5 @@ public class EventDTO {
 	@ManyToOne
 	private HallDTO hall;
 
+	private String status;
 }

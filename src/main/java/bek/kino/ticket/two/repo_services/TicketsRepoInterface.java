@@ -15,4 +15,6 @@ public interface TicketsRepoInterface {
 	List<Tickets> getTicketByEventId(Long id);
 
 	List<Tickets> getAllTicketByUserId(Long id);
+
+	List<Tickets> getAllActivityTicketsByUserId(Long id);
 }

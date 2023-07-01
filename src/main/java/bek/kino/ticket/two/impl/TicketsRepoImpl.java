@@ -39,4 +39,7 @@ public class TicketsRepoImpl implements TicketsRepoInterface {
 		return ticketsRepository.findAllByUserId(id);
 	}
 
+	public List<Tickets> getAllActivityTicketsByUserId(Long id){
+		return ticketsRepository.getAllActivityTicketsByUserId(id);
+	}
 }

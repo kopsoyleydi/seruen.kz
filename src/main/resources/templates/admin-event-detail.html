@@ -11,6 +11,10 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Update event
             </button>
+
+            <button type="button" class="btn btn-secondary ms-2" data-bs-toggle="modal" data-bs-target="#statusChange">
+                Change status
+            </button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog">
@@ -92,6 +96,28 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button onclick="updateEvent()" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col ms-5">
+            <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="statusChange" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="statusChangeModal">Confirmation modal</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" onclick="changeStatus()">Change status</button>
                         </div>
                     </div>
                 </div>
@@ -182,6 +208,23 @@
                     'pictureLink': eventPicture.value,
                     'price': eventPrice.value,
                     'hall_id': Hall.value
+                };
+                body = JSON.stringify(body);
+                httpRequest.send(body);
+            }
+
+            function changeStatus(){
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("POST", "http://localhost:8000/events/event-status-change", true);
+                httpRequest.setRequestHeader("Content-Type", "application/json");
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                        window.location.reload();
+                    }
+                };
+                let body = {
+                    'id':eventId.value,
+                    'status':'false'
                 };
                 body = JSON.stringify(body);
                 httpRequest.send(body);

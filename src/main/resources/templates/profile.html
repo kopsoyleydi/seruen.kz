@@ -8,8 +8,8 @@
     <input id="userId" th:value="${#authentication.principal.getId()}" type="hidden">
     <main>
         <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" th:src="${#authentication.principal.imgLink}" alt="" width="215"
-                 height="250">
+            <img class="d-block mx-auto mb-4" alt="" width="215"
+                 height="250" id="image">
         </div>
         <div class="row g-5">
             <div class="col-md-5 col-lg-4 order-md-last">
@@ -26,20 +26,19 @@
                     <button type="submit" class="btn btn-secondary">Redeem</button>
                 </div>
                 <script type="text/javascript">
-
+                    id = document.getElementById("userId").value;
                     loadTickets();
 
                     function loadTickets() {
-                        let id = document.getElementById("userId").value;
                         const httpRequest = new XMLHttpRequest();
-                        httpRequest.open("GET", "http://localhost:8000/getAllTicketsByUserId/" + id, true);
+                        httpRequest.open("GET", "http://localhost:8000/getAllActivityTicketsByUserId/" + id, true);
                         httpRequest.onreadystatechange = function () {
                             if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
 
                                 let courseList = JSON.parse(httpRequest.responseText);
 
                                 let tableContent = "";
-                                for (let i = 0; i < 3; i++) {
+                                for (let i = 0; i < courseList.length; i++) {
                                     tableContent += "<li class=\"list-group-item d-flex " +
                                         "\justify-content-between lh-sm\">";
                                     tableContent += "<div>\n" +
@@ -61,18 +60,97 @@
                     <div class="col-sm-6">
                         <label for="firstName" class="form-label">Full Name</label>
                         <input type="text" class="form-control" id="firstName" placeholder=""
-                               th:value="${#authentication.principal.fullName}" required="" readonly>
+                               required="" readonly>
+                        <br>
+                        <input type="text" class="form-control" id="balance" placeholder=""
+                               required="" readonly>
                     </div>
                     <div class="col-12">
                         <label for="username" class="form-label">Email</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text">@</span>
                             <input type="text" class="form-control" id="username"
-                                   th:value="${#authentication.principal.email}"
-                                   placeholder="Username" required="" readonly>
+                                    required="" readonly>
+                        </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Update avatar
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Avatar</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row mt-2">
+                                            <div class="col-12">
+                                                <label>Put your image link : </label>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-0 mb-2">
+                                        <div class="col-11 ms-3">
+                                            <input type="text" id="newImage" class="form-control">
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button  class="btn btn-success" onclick="setImg()">Update avatar</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <script>
+
+                    loadProfile();
+
+                    function loadProfile() {
+                        const httpRequest = new XMLHttpRequest();
+                        httpRequest.open("GET", "http://localhost:8000/getCurrentUser/" + id, true);
+                        let balance = document.getElementById("balance");
+                        let nameUser = document.getElementById("firstName");
+                        let username = document.getElementById("username");
+                        let image = document.getElementById("image");
+                        httpRequest.onreadystatechange = function () {
+                            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                                let responseData = JSON.parse(httpRequest.responseText);
+                                balance.value = responseData.balance;
+                                nameUser.value = responseData.fullName;
+                                username.value = responseData.email;
+                                image.src = responseData.imgLink;
+                            }
+                        };
+                        httpRequest.send();
+                    }
+
+                    function setImg(){
+                        const httpRequest = new XMLHttpRequest();
+                        httpRequest.open("POST", "http://localhost:8000/set-img", true);
+                        httpRequest.setRequestHeader("Content-Type", "application/json");
+                        let username = document.getElementById("username");
+                        let imgLink = document.getElementById("newImage");
+                        httpRequest.onreadystatechange = function () {
+                            if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                                loadProfile();
+                                window.location.reload();
+                                imgLink.value = '';
+                            }
+                        };
+                        let body = {
+                            'link':imgLink.value,
+                            'userEmail':username.value
+                        };
+                        body = JSON.stringify(body);
+                        httpRequest.send(body);
+                    }
+                </script>
             </div>
         </div>
     </main>

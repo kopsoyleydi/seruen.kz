@@ -4,12 +4,12 @@ package bek.kino.ticket.two.api;
 import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
 import bek.kino.ticket.two.dto.MainUserDTO;
+import bek.kino.ticket.two.dto.UserDTO;
+import bek.kino.ticket.two.mapper.UserMapper;
 import bek.kino.ticket.two.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RequiredArgsConstructor
@@ -18,6 +18,7 @@ public class UserController {
 
 	private final UserService userService;
 
+	private final UserMapper mapper;
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/set-img")
@@ -28,7 +29,12 @@ public class UserController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/plusBalance")
 	public MainUserDTO plusBalance(@RequestBody Balance balance) {
-		return userService.plusBalance(balance);
+		return userService.topToBalance(balance);
+	}
+
+	@GetMapping(value = "/getCurrentUser/{id}")
+	public UserDTO getCurrentSessionUser(@PathVariable(name = "id") Long id){
+		return userService.getUserById(id);
 	}
 
 }

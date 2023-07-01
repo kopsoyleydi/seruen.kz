@@ -59,4 +59,7 @@ public class TicketsService {
 	public List<TicketDTO> getAllTicketByUserId(Long id) {
 		return mapper.toDtoList(ticketsRepo.getAllTicketByUserId(id));
 	}
+	public List<TicketDTO> getAllActivityTicketsByUserId(Long id){
+		return mapper.toDtoList(ticketsRepo.getAllActivityTicketsByUserId(id));
+	}
 }

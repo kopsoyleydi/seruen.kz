@@ -2,6 +2,7 @@ package bek.kino.ticket.two.services;
 
 
 import bek.kino.ticket.two.BodySample.EventSample;
+import bek.kino.ticket.two.BodySample.EventStatus;
 import bek.kino.ticket.two.dto.EventDTO;
 import bek.kino.ticket.two.impl.EventRepoImpl;
 import bek.kino.ticket.two.impl.HallRepoImpl;
@@ -25,8 +26,17 @@ public class EventService {
 		return eventMapper.toDtoList(eventRepo.getAllEvents());
 	}
 
-	public EventDTO addEvent(EventDTO eventDTO) {
-		return eventMapper.toDto(eventRepo.addEvent(eventMapper.toModel(eventDTO)));
+	public EventDTO addEvent(EventSample eventSample) {
+		Event event = new Event();
+		event.setId(eventSample.getId());
+		event.setAuthor(eventSample.getAuthor());
+		event.setEvent_date(eventSample.getEvent_date());
+		event.setEventName(eventSample.getEventName());
+		event.setPrice(eventSample.getPrice());
+		Hall hall = hallRepo.getHallById(eventSample.getHall_id());
+		event.setHall(hall);
+		event.setPictureLink(eventSample.getPictureLink());
+		return eventMapper.toDto(eventRepo.addEvent(event));
 	}
 
 	public EventDTO getEventById(Long id) {
@@ -40,9 +50,20 @@ public class EventService {
 		event.setEvent_date(eventSample.getEvent_date());
 		event.setEventName(eventSample.getEventName());
 		event.setPrice(eventSample.getPrice());
+		event.setStatus("true");
 		Hall hall = hallRepo.getHallById(eventSample.getHall_id());
 		event.setHall(hall);
 		event.setPictureLink(eventSample.getPictureLink());
+		return eventMapper.toDto(eventRepo.updateEvent(event));
+	}
+
+	public List<EventDTO> getAllActivityEvents(){
+		return eventMapper.toDtoList(eventRepo.getAllActivityEvents());
+	}
+
+	public EventDTO changeStatus(EventStatus eventStatus){
+		Event event = eventRepo.getEventById(eventStatus.getId());
+		event.setStatus(eventStatus.getStatus());
 		return eventMapper.toDto(eventRepo.updateEvent(event));
 	}
 }
