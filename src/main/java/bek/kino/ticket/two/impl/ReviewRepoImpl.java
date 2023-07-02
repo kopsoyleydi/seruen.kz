@@ -29,4 +29,9 @@ public class ReviewRepoImpl implements ReviewRepoInterface {
 	public List<Review> getCommentByUserId(Long id) {
 		return reviewRepository.findAllById(id);
 	}
+
+	@Override
+	public List<Review> getAllCommentsByEventId(Long id) {
+		return reviewRepository.findAllByEvent_Id(id);
+	}
 }

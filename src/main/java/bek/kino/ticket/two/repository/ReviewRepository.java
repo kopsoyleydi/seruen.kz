@@ -16,4 +16,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	@Query(value = "SELECT c FROM Review c WHERE c.user.id = :userId")
 	List<Review> findAllById(@Param("userId") Long userId);
+
+	List<Review> findAllByEvent_Id(Long id);
 }

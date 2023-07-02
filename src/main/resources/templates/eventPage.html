@@ -4,6 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div layout:fragment="content">
     <div class="row">
+        <input type="hidden" th:value="${#authentication.principal.id}" id="user_id">
         <div class="card" style="width: 18rem;">
             <img th:src="${event.pictureLink}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -12,7 +13,7 @@
                 <a href="#" class="btn btn-secondary" th:text="${event.price + ' t'}"></a>
             </div>
         </div>
-        <div class="col ms-5" sec:authorize="hasAnyRole('ROLE_USER')">
+        <div class="col-7 ms-5" sec:authorize="hasAnyRole('ROLE_USER')">
             <div class="row mt-3">
                 <div class="col-6" id="alert">
                 </div>
@@ -25,7 +26,7 @@
             <div class="row mt-2">
                 <div class="col-6">
                     <input id="username" type="email" class="form-control">
-                    <input id="userId" type="hidden" th:value="${event.id}">
+                    <input id="eventId" type="hidden" th:value="${event.id}">
                 </div>
             </div>
             <div class="row mt-3">
@@ -59,18 +60,54 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div>
+            <div class="col-12 ms-2 mt-3">
+                <div class="container mt-5">
+                    <div class="row  d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                                <h5>Reviews</h5>
+                                <div class="buttons">
+                            <span class="badge bg-white d-flex flex-row align-items-center">
+                                <span class="text-primary">All review</span>
+                            </span>
+                                </div>
+                            </div>
+                            <div class="col-12 mx-auto p-3 mt-2" style="background-color: white; display: flex">
+                                <div class="col-12">
+                                    <div class="col-12 mx-auto p-3 mt-2" style="background-color: white; display: flex">
+                                        <div class="col-12">
+                                            <textarea class="form-control" id="comment"
+                                                      placeholder="Write a review"></textarea>
+                                            <button class="btn btn-primary mt-2 btn-sm ms-1" onclick="addComment()">Add
+                                                your review
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card p-2 mt-3" id="allComments">
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript">
+
+            let eventId = document.getElementById("eventId");
+
             function addCourse() {
                 const httpRequest = new XMLHttpRequest();
                 httpRequest.open("POST", "/addTicket", true);
                 httpRequest.setRequestHeader("Content-Type", "application/json");
 
                 let username = document.getElementById("username");
-                let id = document.getElementById("userId");
+                let event_id = document.getElementById("eventId");
                 let place = document.getElementById("place");
                 let price = document.getElementById("price");
 
@@ -92,9 +129,69 @@
                 };
                 let body = {
                     'username': username.value,
-                    'id': id.value,
+                    'id': event_id.value,
                     'place': place.value,
                     'price': price.value
+                };
+                body = JSON.stringify(body);
+                httpRequest.send(body);
+            }
+
+            loadComments();
+
+            function loadComments() {
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("GET", "http://localhost:8000/getCommentByEventId/" + eventId.value, true);
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+
+                        let courseList = JSON.parse(httpRequest.responseText);
+
+                        let tableContent = "";
+                        for (let i = 0; i < courseList.length; i++) {
+                            tableContent += "<div>\n" +
+                                "<div class=\"d-flex justify-content-between align-items-center\">\n" +
+                                "     <div class=\"user d-flex flex-row align-items-center\">\n" +
+                                "          <img class='me-3' src=\"" + courseList[i].user.imgLink + "\" width=\"30\"\n" +
+                                "               class=\"user-img rounded-circle mr-2\">\n" +
+                                "                     <span><small class=\"font-weight-bold text-primary\">" + courseList[i].user.fullName + "</small>\n" +
+                                "                           <small class=\"font-weight-bold ms-2\">" + courseList[i].comment + "</small></span>\n" +
+                                "     </div>\n" +
+                                "     <small></small>\n" +
+                                "</div>\n" +
+                                "<div class=\"action d-flex justify-content-between mt-2 align-items-center\">\n" +
+                                "     <div class=\"icons align-items-center mt-2\">\n" +
+                                "          <button type=\"button\" class=\"btn btn-danger btn-sm\" data-bs-toggle=\"modal\"\n" +
+                                "                  data-bs-target=\"#delete\">\n" +
+                                "                       delete\n" +
+                                "          </button>\n" +
+                                "      </div>\n" +
+                                "</div>\n" +
+                                "</div>";
+                        }
+                        document.getElementById("allComments").innerHTML = tableContent;
+                    }
+                }
+                httpRequest.send();
+            }
+
+            function addComment() {
+                const httpRequest = new XMLHttpRequest();
+                httpRequest.open("POST", "/addReview", true);
+                httpRequest.setRequestHeader("Content-Type", "application/json");
+                let userId = document.getElementById("user_id");
+                let eventId = document.getElementById("eventId");
+                let comment = document.getElementById("comment");
+                httpRequest.onreadystatechange = function () {
+                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+                        window.location.reload();
+                    }
+                };
+                let body = {
+                    'id': null,
+                    'comment': comment.value,
+                    'user_id': userId.value,
+                    'event_id': eventId.value
                 };
                 body = JSON.stringify(body);
                 httpRequest.send(body);

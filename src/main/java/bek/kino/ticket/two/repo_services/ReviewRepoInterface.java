@@ -10,4 +10,6 @@ public interface ReviewRepoInterface {
 	public Review addComment(Review review);
 
 	public List<Review> getCommentByUserId(Long id);
+
+	public List<Review> getAllCommentsByEventId(Long id);
 }
