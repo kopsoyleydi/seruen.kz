@@ -99,7 +99,7 @@
 
         <script type="text/javascript">
 
-            let eventId = document.getElementById("eventId");
+            eventId = document.getElementById("eventId");
 
             function addCourse() {
                 const httpRequest = new XMLHttpRequest();
@@ -107,7 +107,6 @@
                 httpRequest.setRequestHeader("Content-Type", "application/json");
 
                 let username = document.getElementById("username");
-                let event_id = document.getElementById("eventId");
                 let place = document.getElementById("place");
                 let price = document.getElementById("price");
 
@@ -120,7 +119,6 @@
                             "          </div>";
                     } else if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                         username.value = "";
-                        id.value = "";
                         place.value = "";
                         alert.innerHTML = " <div class=\"alert alert-success\" role=\"alert\">\n" +
                             "            Purchase completed successfully\n" +
@@ -129,7 +127,7 @@
                 };
                 let body = {
                     'username': username.value,
-                    'id': event_id.value,
+                    'id': eventId.value,
                     'place': place.value,
                     'price': price.value
                 };

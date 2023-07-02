@@ -23,7 +23,13 @@ public class ListsForData {
 	}
 
 	public static void minusPlace(int place1) {
-		places.remove(place1);
+		int index = 0;
+		for(int i = 0;i<places.size();i++){
+			if(places.get(i).equals(place1)){
+				index = i;
+			}
+		}
+		places.remove(index);
 	}
 
 	public static List<Integer> getPlaces() {
