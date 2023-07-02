@@ -1,7 +1,6 @@
 package bek.kino.ticket.two.controller;
 
 import bek.kino.ticket.two.impl.PermissionRepoImpl;
-import bek.kino.ticket.two.model.Permission;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,6 @@ package bek.kino.ticket.two.api;
 import bek.kino.ticket.two.dto.TicketDTO;
 import bek.kino.ticket.two.impl.TicketsRepoImpl;
 import bek.kino.ticket.two.mapper.TicketMapper;
-import jakarta.persistence.NamedStoredProcedureQueries;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

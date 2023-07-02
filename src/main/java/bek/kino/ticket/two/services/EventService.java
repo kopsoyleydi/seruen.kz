@@ -66,18 +66,18 @@ public class EventService {
 		return eventMapper.toDto(eventRepo.updateEvent(event));
 	}
 
-	public List<EventDTO> getAllActivityEvents(){
+	public List<EventDTO> getAllActivityEvents() {
 		return eventMapper.toDtoList(eventRepo.getAllActivityEvents());
 	}
 
-	public EventDTO changeStatus(EventStatus eventStatus){
+	public EventDTO changeStatus(EventStatus eventStatus) {
 		Event event = eventRepo.getEventById(eventStatus.getId());
 		event.setStatus(eventStatus.getStatus());
 		return eventMapper.toDto(eventRepo.updateEvent(event));
 	}
 
 
-	public List<Integer> listPlaces(Long id){
+	public List<Integer> listPlaces(Long id) {
 		List<Integer> places = new ArrayList<>();
 		List<Integer> listPlace = lists.getPlaces();
 		List<TicketDTO> ticketsList = ticketMapper.toDtoList(ticketsRepo.getTicketByEventId(id));

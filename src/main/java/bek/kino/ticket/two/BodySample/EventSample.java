@@ -1,8 +1,6 @@
 package bek.kino.ticket.two.BodySample;
 
 
-import bek.kino.ticket.two.dto.HallDTO;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 

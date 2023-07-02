@@ -32,7 +32,7 @@ public class TicketsService {
 
 	public TicketDTO addTicket(TicketBody ticketBody) {
 		User user = (User) userService.loadUserByUsername(ticketBody.getUsername());
-		if(user != null){
+		if (user != null) {
 			Tickets tickets1 = new Tickets();
 			Event event = eventRepository.findAllById(ticketBody.getId());
 			if (bookingSystem.minusBalance(user, ticketBody.getPrice())) {
@@ -42,7 +42,7 @@ public class TicketsService {
 				tickets1.setEvent(event);
 				lists.minusPlace(ticketBody.getPlace());
 				tickets1.setPlace(ticketBody.getPlace());
-				sender.sendEmail(user.getEmail(), "Your ticket",tickets1);
+				sender.sendEmail(user.getEmail(), "Your ticket", tickets1);
 				return mapper.toDto(ticketsRepo.addTicket(tickets1));
 			}
 		}
@@ -65,7 +65,8 @@ public class TicketsService {
 	public List<TicketDTO> getAllTicketByUserId(Long id) {
 		return mapper.toDtoList(ticketsRepo.getAllTicketByUserId(id));
 	}
-	public List<TicketDTO> getAllActivityTicketsByUserId(Long id){
+
+	public List<TicketDTO> getAllActivityTicketsByUserId(Long id) {
 		return mapper.toDtoList(ticketsRepo.getAllActivityTicketsByUserId(id));
 	}
 

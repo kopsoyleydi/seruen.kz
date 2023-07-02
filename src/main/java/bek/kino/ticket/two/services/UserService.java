@@ -27,7 +27,6 @@ public class UserService implements UserDetailsService {
 	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
 	@Autowired
 	private MainUserMapper mapper;
 	@Autowired
@@ -55,7 +54,6 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User updatePassword(String newPassword, String oldPassword) {
-
 		User currentUser = getCurrentSessionUser();
 		if (passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
 			currentUser.setPassword(passwordEncoder.encode(newPassword));
@@ -75,7 +73,7 @@ public class UserService implements UserDetailsService {
 		return null;
 	}
 
-	public MainUserDTO topToBalance(Balance balance){
+	public MainUserDTO topToBalance(Balance balance) {
 		User user = userRepository.findAllById(balance.getUser_id());
 		user.setBalance(balance.getBalance() + user.getBalance());
 		return mapper.toDtoUser(userRepository.save(user));
@@ -88,11 +86,11 @@ public class UserService implements UserDetailsService {
 		return mapper.toDtoUser(userRepository.save(user));
 	}
 
-	public UserDTO getUserById(Long id){
+	public UserDTO getUserById(Long id) {
 		return userMapper.toDtoUser(userRepository.findAllById(id));
 	}
 
-	public String signUpService(String email,String password,String repeatPassword,String fullName){
+	public String signUpService(String email, String password, String repeatPassword, String fullName) {
 		if (password.equals(repeatPassword)) {
 			User user = new User();
 			user.setEmail(email);
@@ -115,9 +113,8 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
-	public String updatePassword(String oldPassword,String newPassword,String repeatNewPassword){
+	public String updatePassword(String oldPassword, String newPassword, String repeatNewPassword) {
 		if (newPassword.equals(repeatNewPassword)) {
-
 			User user = updatePassword(newPassword, oldPassword);
 			if (user != null) {
 				return "redirect:/update-password-page?success";
