@@ -1,6 +1,7 @@
 package bek.kino.ticket.two.services;
 
 
+import bek.kino.ticket.two.EmailTicketSender;
 import bek.kino.ticket.two.dto.TicketDTO;
 import bek.kino.ticket.two.impl.TicketsRepoImpl;
 import bek.kino.ticket.two.mapper.TicketMapper;
@@ -22,6 +23,8 @@ public class TicketsService {
 	private final UserService userService;
 	private final TicketMapper mapper;
 
+	private final EmailTicketSender sender;
+
 	private final ListsForData lists;
 	private final EventRepository eventRepository;
 
@@ -38,6 +41,7 @@ public class TicketsService {
 			tickets1.setEvent(event);
 			lists.minusPlace(ticketBody.getPlace());
 			tickets1.setPlace(ticketBody.getPlace());
+			sender.sendEmail(user.getEmail(), "Your ticket",tickets1);
 			return mapper.toDto(ticketsRepo.addTicket(tickets1));
 		}
 		return null;
@@ -62,4 +66,5 @@ public class TicketsService {
 	public List<TicketDTO> getAllActivityTicketsByUserId(Long id){
 		return mapper.toDtoList(ticketsRepo.getAllActivityTicketsByUserId(id));
 	}
+
 }
