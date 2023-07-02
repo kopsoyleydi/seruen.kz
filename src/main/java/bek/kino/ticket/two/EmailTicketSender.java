@@ -18,7 +18,7 @@ public class EmailTicketSender {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("omyrzakovbeksultan1@gmail.com");
 		message.setTo(toEmail);
-		String body = "Event name"+tickets.getEvent().getEventName() +
+		String body = "Event name: "+tickets.getEvent().getEventName() +
 				", your hall is: " + tickets.getEvent().getHall().getId() + ", your place in this: "
 				+ tickets.getPlace() + ", event date: " + tickets.getEvent().getEvent_date() + ", ticket prime code: "
 				+ tickets.getPrimeCodeTicket() + ", please scan this code. ";
