@@ -32,17 +32,19 @@ public class TicketsService {
 
 	public TicketDTO addTicket(TicketBody ticketBody) {
 		User user = (User) userService.loadUserByUsername(ticketBody.getUsername());
-		Tickets tickets1 = new Tickets();
-		Event event = eventRepository.findAllById(ticketBody.getId());
-		if (bookingSystem.minusBalance(user, ticketBody.getPrice())) {
-			int random = (int) (Math.random() * 50 + 1);
-			tickets1.setPrimeCodeTicket((long) random);
-			tickets1.setUser(user);
-			tickets1.setEvent(event);
-			lists.minusPlace(ticketBody.getPlace());
-			tickets1.setPlace(ticketBody.getPlace());
-			sender.sendEmail(user.getEmail(), "Your ticket",tickets1);
-			return mapper.toDto(ticketsRepo.addTicket(tickets1));
+		if(user != null){
+			Tickets tickets1 = new Tickets();
+			Event event = eventRepository.findAllById(ticketBody.getId());
+			if (bookingSystem.minusBalance(user, ticketBody.getPrice())) {
+				int random = (int) (Math.random() * 50 + 1);
+				tickets1.setPrimeCodeTicket((long) random);
+				tickets1.setUser(user);
+				tickets1.setEvent(event);
+				lists.minusPlace(ticketBody.getPlace());
+				tickets1.setPlace(ticketBody.getPlace());
+				sender.sendEmail(user.getEmail(), "Your ticket",tickets1);
+				return mapper.toDto(ticketsRepo.addTicket(tickets1));
+			}
 		}
 		return null;
 	}
