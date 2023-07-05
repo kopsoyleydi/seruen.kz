@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class Balance {
 	private int balance;
-
+	//эти классы нужны чтобы
+	//коректировать requestBody из рест контроллеров, они как их схема
 	private Long user_id;
 }

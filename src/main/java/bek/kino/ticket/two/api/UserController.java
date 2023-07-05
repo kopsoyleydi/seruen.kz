@@ -37,7 +37,6 @@ public class UserController {
 		return userService.getUserById(id);
 	}
 
-	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/getAllUsers")
 	public List<MainUserDTO> getAllUsers(){
 		return userService.getAllUsers();

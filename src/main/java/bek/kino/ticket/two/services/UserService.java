@@ -12,6 +12,7 @@ import bek.kino.ticket.two.model.Permission;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,25 +20,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@RequiredArgsConstructor
-@Service
 public class UserService implements UserDetailsService {
 
-	private final UserRepoImpl userRepo;
+	@Autowired
+	private UserRepoImpl userRepo;
 
-	private final PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-	private final MainUserMapper mapper;
+	@Autowired
+	private MainUserMapper mapper;
 
-	private final PermissionRepoImpl repo;
+	@Autowired
+	private PermissionRepoImpl repo;
 
-	private final UserMapper userMapper;
+	@Autowired
+	private UserMapper userMapper;
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
