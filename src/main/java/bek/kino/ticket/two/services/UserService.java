@@ -5,12 +5,13 @@ import bek.kino.ticket.two.BodySample.ImgUpdateBody;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.dto.UserDTO;
 import bek.kino.ticket.two.impl.PermissionRepoImpl;
+import bek.kino.ticket.two.impl.UserRepoImpl;
 import bek.kino.ticket.two.mapper.MainUserMapper;
 import bek.kino.ticket.two.mapper.UserMapper;
 import bek.kino.ticket.two.model.Permission;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,25 +19,29 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@RequiredArgsConstructor
+@Service
 public class UserService implements UserDetailsService {
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	@Autowired
-	private MainUserMapper mapper;
-	@Autowired
-	private PermissionRepoImpl repo;
-	@Autowired
-	private UserMapper userMapper;
+
+	private final UserRepoImpl userRepo;
+
+	private final PasswordEncoder passwordEncoder;
+
+	private final MainUserMapper mapper;
+
+	private final PermissionRepoImpl repo;
+
+	private final UserMapper userMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(username);
+		User user = userRepo.getUserByEmail(username);
 		if (user != null) {
 			return user;
 		} else {
@@ -45,10 +50,10 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User addUser(User user) {
-		User checkUser = userRepository.findByEmail(user.getEmail());
+		User checkUser = userRepo.getUserByEmail(user.getEmail());
 		if (checkUser == null) {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			return userRepository.save(user);
+			return userRepo.addUser(user);
 		}
 		return null;
 	}
@@ -57,7 +62,7 @@ public class UserService implements UserDetailsService {
 		User currentUser = getCurrentSessionUser();
 		if (passwordEncoder.matches(oldPassword, currentUser.getPassword())) {
 			currentUser.setPassword(passwordEncoder.encode(newPassword));
-			return userRepository.save(currentUser);
+			return userRepo.addUser(currentUser);
 		}
 		return null;
 	}
@@ -74,20 +79,19 @@ public class UserService implements UserDetailsService {
 	}
 
 	public MainUserDTO topToBalance(Balance balance) {
-		User user = userRepository.findAllById(balance.getUser_id());
+		User user = userRepo.getUserById(balance.getUser_id());
 		user.setBalance(balance.getBalance() + user.getBalance());
-		return mapper.toDtoUser(userRepository.save(user));
+		return mapper.toDtoUser(userRepo.addUser(user));
 	}
 
 	public MainUserDTO updateImgInProfile(ImgUpdateBody imgUpdateBody) {
-		User user = null;
-		user = (User) loadUserByUsername(imgUpdateBody.userEmail);
+		User user = (User) loadUserByUsername(imgUpdateBody.userEmail);
 		user.setImgLink(imgUpdateBody.link);
-		return mapper.toDtoUser(userRepository.save(user));
+		return mapper.toDtoUser(userRepo.addUser(user));
 	}
 
 	public UserDTO getUserById(Long id) {
-		return userMapper.toDtoUser(userRepository.findAllById(id));
+		return userMapper.toDtoUser(userRepo.getUserById(id));
 	}
 
 	public String signUpService(String email, String password, String repeatPassword, String fullName) {
@@ -125,5 +129,9 @@ public class UserService implements UserDetailsService {
 		} else {
 			return "redirect:/update-password-page?passwordmismatch";
 		}
+	}
+
+	public List<MainUserDTO> getAllUsers(){
+		return mapper.toDtoListUser(userRepo.getAllUsers());
 	}
 }

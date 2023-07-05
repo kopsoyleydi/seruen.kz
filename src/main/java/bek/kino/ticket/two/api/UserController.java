@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @RestController
@@ -29,9 +31,16 @@ public class UserController {
 		return userService.topToBalance(balance);
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/getCurrentUser/{id}")
 	public UserDTO getCurrentSessionUser(@PathVariable(name = "id") Long id){
 		return userService.getUserById(id);
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/getAllUsers")
+	public List<MainUserDTO> getAllUsers(){
+		return userService.getAllUsers();
 	}
 
 }

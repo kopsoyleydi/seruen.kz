@@ -75,7 +75,7 @@ public class PagesController {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value = "/admin-event")
-	public String adminPanel() {
+	public String adminEvent() {
 		return "adminEvent";
 	}
 
@@ -95,5 +95,11 @@ public class PagesController {
 	@GetMapping(value = "/add-balance")
 	public String addBalanceToUser() {
 		return "Balance";
+	}
+
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value = "/admin-panel")
+	public String adminPanel(){
+		return "admin-panel";
 	}
 }

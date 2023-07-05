@@ -33,4 +33,9 @@ public class UserRepoImpl implements UserRepoInterface {
 	public User updateParam(User user) {
 		return userRepository.save(user);
 	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 }
