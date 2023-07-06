@@ -53,7 +53,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6" sec:authorize="isAuthenticated()">
-                    <button class="btn btn-success" onclick="addCourse()">Buy Ticket</button>
+                    <button class="btn btn-success" onclick="addTicket()">Buy Ticket</button>
                 </div>
                 <div class="col-6" sec:authorize="isAnonymous()">
                     <span>Вы должны зарегистрироваться или войти для покупки билета</span>
@@ -101,7 +101,7 @@
 
             eventId = document.getElementById("eventId");
 
-            function addCourse() {
+            function addTicket() {
                 const httpRequest = new XMLHttpRequest();
                 httpRequest.open("POST", "/addTicket", true);
                 httpRequest.setRequestHeader("Content-Type", "application/json");

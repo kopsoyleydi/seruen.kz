@@ -38,16 +38,19 @@ public class UserController {
 		return userService.getUserById(id);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@GetMapping(value = "/getAllUsers")
 	public List<MainUserDTO> getAllUsers(){
 		return userService.getAllUsers();
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PutMapping(value = "/assign")
 	public MainUserDTO assign(@RequestBody SamplePermissionId samplePermissionId){
 		return userService.assign(samplePermissionId);
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@DeleteMapping(value = "/deletePer")
 	public MainUserDTO deletePer(@RequestBody SamplePermissionId samplePermissionId){
 		return userService.deletePer(samplePermissionId);

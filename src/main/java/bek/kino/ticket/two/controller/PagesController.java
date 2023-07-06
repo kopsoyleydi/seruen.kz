@@ -59,12 +59,6 @@ public class PagesController {
 		model.addAttribute("event", eventDTO);
 		return "eventPage";
 	}
-
-	@GetMapping(value = "/selectSeat")
-	public String selectSeat() {
-		return "selectSeat";
-	}
-
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/my_tickets")
 	public String userTickets(Model model) {
