@@ -7,7 +7,6 @@ import bek.kino.ticket.two.BodySample.SamplePermissionId;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.dto.UserDTO;
 import bek.kino.ticket.two.services.UserService;
-import com.sun.tools.javac.Main;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

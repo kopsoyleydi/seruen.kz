@@ -28,7 +28,6 @@ public class HomeController {
 		return "profile";
 	}
 
-
 	@PostMapping(value = "/to-sign-up")
 	public String toSignUp(@RequestParam(name = "user_email") String email,
 	                       @RequestParam(name = "user_password") String password,

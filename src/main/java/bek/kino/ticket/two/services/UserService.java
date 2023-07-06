@@ -11,8 +11,6 @@ import bek.kino.ticket.two.mapper.MainUserMapper;
 import bek.kino.ticket.two.mapper.UserMapper;
 import bek.kino.ticket.two.model.Permission;
 import bek.kino.ticket.two.model.User;
-import bek.kino.ticket.two.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
