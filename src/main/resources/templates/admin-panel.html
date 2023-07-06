@@ -14,19 +14,18 @@
                     <th scope="col">Full Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Permissions</th>
-                    <th scope="col">Add permission</th>
-                    <th scope="col">Delete permission</th>
+                    <th scope="col">Assign Permission</th>
                 </tr>
                 </thead>
                 <tbody id="users_table">
                 </tbody>
             </table>
         </div>
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="detailmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="addModalLabel">Modal title</h1>
+                        <h1 class="modal-title fs-5" id="deleteModalLabel">You should select for the operation</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -34,12 +33,12 @@
                             <div class="col-6 mx-auto">
                                 <div class="row">
                                     <div class="col-12">
-                                        <label>Add Permission : </label>
+                                        <label>Select Permission : </label>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-12 form-control">
-                                        <select id="add_select" class="form-control">
+                                    <div class="col-12">
+                                        <select id="select" class="form-select">
 
                                         </select>
                                     </div>
@@ -49,39 +48,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="deleteModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-6 mx-auto">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <label>Delete Permission : </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 form-control">
-                                        <select id="delete" class="form-control">
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-success" onclick="assignPermission()">Add permission
+                        </button>
+                        <button type="button" class="btn btn-danger" onclick="deletePermission()">Delete permission</button>
                     </div>
                 </div>
             </div>
@@ -97,7 +66,6 @@
                     if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                         let userList = JSON.parse(httpRequest.responseText);
                         let tableContent = "";
-                        let variable = 0;
                         for (let i = 0; i < userList.length; i++) {
                             tableContent += "<tr>";
                             tableContent += "<th scope=\"row\">" + userList[i].id + "</th>";
@@ -118,14 +86,9 @@
                             tableContent += "</td>";
                             tableContent += "<td><button type=\"button\" class=\"btn btn-success btn-sm\"" +
                                 " " +
-                                " onclick='openCourseDetailsModal("+userList[i].id+")'>" +
-                                "Add permission" +
+                                " onclick='openCourseDetailsModal(" + userList[i].id + ")'>" +
+                                "Permission" +
                                 "</button></td>";
-                            tableContent += "<td><button type=\"button\" class=\"btn btn-secondary btn-sm\"" +
-                                "data-bs-toggle=\"modal\" data-bs-target=\"#deleteModal\"" +
-                                " onclick='loadPermissions()'>" +
-                                "Delete Permission" +
-                                "</button></td>"
                         }
                         document.getElementById("users_table").innerHTML = tableContent;
                     }
@@ -133,10 +96,9 @@
                 httpRequest.send();
             }
 
-            function openCourseDetailsModal(id){
-
-                detailsModal = new bootstrap.Modal(document.getElementById('addModal'));
-
+            function openCourseDetailsModal(id) {
+                detailsModal = new bootstrap.Modal(document.getElementById('detailmodal'));
+                userid = id;
                 const httpRequest = new XMLHttpRequest();
                 httpRequest.open("GET", "http://localhost:8000/getAllPermissions", true);
                 httpRequest.onreadystatechange = function () {
@@ -144,66 +106,56 @@
                         let permissionList = JSON.parse(httpRequest.responseText);
                         let permissionContent = "";
                         for (let i = 0; i < permissionList.length; i++) {
-                            permissionContent += "<option value='"+permissionList[i].id+"' class='form-control'>"+permissionList[i].role+"</option>"
+                            permissionContent += "<option value='" + permissionList[i].id + "' class='form-control'>" + permissionList[i].role + "</option>"
                         }
-                        document.getElementById("add_select").innerHTML = permissionContent;
+                        document.getElementById("select").innerHTML = permissionContent;
                         detailsModal.show();
                     }
                 }
                 httpRequest.send();
 
             }
-            function loadPermissions(){
-                const httpRequest = new XMLHttpRequest();
-                httpRequest.open("GET", "http://localhost:8000/getAllPermissions", true);
-                httpRequest.onreadystatechange = function () {
-                    if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
-                        let permissionList = JSON.parse(httpRequest.responseText);
-                        let permissionContent = "";
-                        for (let i = 0; i < permissionList.length; i++) {
-                            permissionContent += "<option value='"+permissionList[i].id+"' class='form-control'>"+permissionList[i].role+"</option>"
-                        }
-                        document.getElementById("delete").innerHTML = permissionContent;
-                    }
-                }
-                httpRequest.send();
-            }
 
-            function assignPermission(userId){
+            function assignPermission() {
                 const httpRequest = new XMLHttpRequest();
-                httpRequest.open("POST", "http://localhost:8000/assignPermission", true);
+                httpRequest.open("PUT", "/assign", true);
                 httpRequest.setRequestHeader("Content-Type", "application/json");
-                let assignPermission = document.getElementById("add_select");
+                let permission = document.getElementById("select");
                 httpRequest.onreadystatechange = function () {
                     if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                         window.location.reload();
                     }
                 };
+                console.log(userid);
+                console.log(permission.value);
                 let body = {
-                    'user_id': userPerId.value,
-                    'permission_id': assignPermission.value
+                    "user_id": userid,
+                    "permission_id": permission.value
                 };
                 body = JSON.stringify(body);
                 httpRequest.send(body);
             }
 
-            function deletePermission(userId){
+            function deletePermission() {
                 const httpRequest = new XMLHttpRequest();
-                httpRequest.open("POST", "http://localhost:8000/un_assignPermission", true);
+                httpRequest.open("DELETE", "/deletePer", true);
                 httpRequest.setRequestHeader("Content-Type", "application/json");
-                let assignPermission = document.getElementById("add_select");
+                let permission = document.getElementById("select");
                 httpRequest.onreadystatechange = function () {
                     if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
                         window.location.reload();
                     }
                 };
+                console.log(userid);
+                console.log(permission.value);
                 let body = {
-                    'user_id': userPerId.value,
-                    'permission_id': assignPermission.value
+                    "user_id": userid,
+                    "permission_id": permission.value
                 };
                 body = JSON.stringify(body);
                 httpRequest.send(body);
             }
+
         </script>
     </div>
 </div>

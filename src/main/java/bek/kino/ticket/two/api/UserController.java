@@ -3,9 +3,11 @@ package bek.kino.ticket.two.api;
 
 import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
+import bek.kino.ticket.two.BodySample.SamplePermissionId;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.dto.UserDTO;
 import bek.kino.ticket.two.services.UserService;
+import com.sun.tools.javac.Main;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +42,16 @@ public class UserController {
 	@GetMapping(value = "/getAllUsers")
 	public List<MainUserDTO> getAllUsers(){
 		return userService.getAllUsers();
+	}
+
+	@PutMapping(value = "/assign")
+	public MainUserDTO assign(@RequestBody SamplePermissionId samplePermissionId){
+		return userService.assign(samplePermissionId);
+	}
+
+	@DeleteMapping(value = "/deletePer")
+	public MainUserDTO deletePer(@RequestBody SamplePermissionId samplePermissionId){
+		return userService.deletePer(samplePermissionId);
 	}
 
 }

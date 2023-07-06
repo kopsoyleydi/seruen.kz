@@ -2,6 +2,7 @@ package bek.kino.ticket.two.services;
 
 import bek.kino.ticket.two.BodySample.Balance;
 import bek.kino.ticket.two.BodySample.ImgUpdateBody;
+import bek.kino.ticket.two.BodySample.SamplePermissionId;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.dto.UserDTO;
 import bek.kino.ticket.two.impl.PermissionRepoImpl;
@@ -42,6 +43,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private MainUserMapper mainUserMapper;
 
 
 	@Override
@@ -138,5 +142,27 @@ public class UserService implements UserDetailsService {
 
 	public List<MainUserDTO> getAllUsers(){
 		return mapper.toDtoListUser(userRepo.getAllUsers());
+	}
+
+	public MainUserDTO assign(SamplePermissionId samplePermissionId){
+		User user = userRepo.getUserById(samplePermissionId.getUser_id());
+		Permission permission = repo.getPermissionById(samplePermissionId.getPermission_id());
+		List<Permission> permissionList = new ArrayList<>(user.getPermissions());
+		permissionList.add(permission);
+		user.setPermissions(permissionList);
+		return mainUserMapper.toDtoUser(userRepo.updateParam(user));
+	}
+
+	public MainUserDTO deletePer(SamplePermissionId samplePermissionId){
+		User user = userRepo.getUserById(samplePermissionId.getUser_id());
+		Permission permission = repo.getPermissionById(samplePermissionId.getPermission_id());
+		int index = 0;
+		for(int i = 0;i<user.getPermissions().size();i++){
+			if(permission.equals(user.getPermissions().get(i))){
+				index = i;
+			}
+		}
+		user.getPermissions().remove(index);
+		return mainUserMapper.toDtoUser(userRepo.updateParam(user));
 	}
 }
