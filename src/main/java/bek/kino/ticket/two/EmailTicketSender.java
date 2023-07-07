@@ -24,7 +24,6 @@ public class EmailTicketSender {
 				+ tickets.getPrimeCodeTicket() + ", please scan this code. ";
 		message.setText(body);
 		message.setSubject(subject);
-
 		mailSender.send(message);
 		System.out.println("Mail send success");
 	}

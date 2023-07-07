@@ -22,13 +22,11 @@ public class TicketsService {
 	private final TicketsRepoImpl ticketsRepo;
 	private final UserService userService;
 	private final TicketMapper mapper;
-
 	private final EmailTicketSender sender;
-
 	private final ListsForData lists;
 	private final EventRepository eventRepository;
-
 	private final BookingSystem bookingSystem;
+	private final TicketNumberGenerator ticketNumberGenerator;
 
 	public TicketDTO addTicket(TicketBody ticketBody) {
 		User user = (User) userService.loadUserByUsername(ticketBody.getUsername());
@@ -36,7 +34,7 @@ public class TicketsService {
 			Tickets tickets1 = new Tickets();
 			Event event = eventRepository.findAllById(ticketBody.getId());
 			if (bookingSystem.minusBalance(user, ticketBody.getPrice())) {
-				int random = (int) (Math.random() * 50 + 1);
+				int random = ticketNumberGenerator.generateTicketNumber();
 				tickets1.setPrimeCodeTicket((long) random);
 				tickets1.setUser(user);
 				tickets1.setEvent(event);
