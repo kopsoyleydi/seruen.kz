@@ -1,6 +1,5 @@
 package bek.kino.ticket.two.controller;
 
-import bek.kino.ticket.two.impl.PermissionRepoImpl;
 import bek.kino.ticket.two.model.User;
 import bek.kino.ticket.two.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private PermissionRepoImpl repo;
 
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping(value = "/profile")
@@ -36,6 +32,7 @@ public class HomeController {
 		return userService.signUpService(email,password,repeatPassword,fullName);
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/to-update-password")
 	public String toUpdatePassword(
 			@RequestParam(name = "user_old_password") String oldPassword,

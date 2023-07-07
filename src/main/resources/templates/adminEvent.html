@@ -105,7 +105,7 @@
     </main>
 
     <script>
-        loadTickets();
+        loadEvents();
 
         let author = document.getElementById("author");
         let eventName = document.getElementById("add_event_name");
@@ -115,29 +115,29 @@
         let status = document.getElementById("event_status");
         let hall = document.getElementById("event_hall");
 
-        function loadTickets() {
+        function loadEvents() {
 
             const httpRequest = new XMLHttpRequest();
             httpRequest.open("GET", "http://localhost:8000/events/getAllActivityEvents", true);
             httpRequest.onreadystatechange = function () {
                 if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
 
-                    let courseList = JSON.parse(httpRequest.responseText);
+                    let eventList = JSON.parse(httpRequest.responseText);
 
                     let tableContent = "";
-                    for (let i = 0; i < courseList.length; i++) {
+                    for (let i = 0; i < eventList.length; i++) {
                         tableContent += "<div class=\"col\">";
                         tableContent += "<div class=\"card shadow-sm\">";
                         tableContent += "<img class=\"bd-placeholder-img card-img-top\" width=\"40%\" height=\"410\"" +
-                            " src='" + courseList[i].pictureLink + "'>";
+                            " src='" + eventList[i].pictureLink + "'>";
                         tableContent += "<div class=\"card-body\">";
-                        tableContent += "<p class=\"card-text\">" + courseList[i].author
+                        tableContent += "<p class=\"card-text\">" + eventList[i].author
                             + "</p>";
                         tableContent += "<div class=\"d-flex justify-content-between align-items-center\">\n" +
                             "                                    <div class=\"btn-group\">\n" +
                             "                                        <button type=\"button\"" +
                             " class=\"btn btn-sm btn-outline-secondary\">\n";
-                        tableContent += "<a href='http://localhost:8000/admin-event-detail/" + courseList[i].id +
+                        tableContent += "<a href='http://localhost:8000/admin-event-detail/" + eventList[i].id +
                             "'>Detail</a>"
                         tableContent +=
                             "</button>";

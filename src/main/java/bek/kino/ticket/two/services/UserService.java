@@ -109,7 +109,7 @@ public class UserService implements UserDetailsService {
 			user.setPassword(password);
 			user.setImgLink(
 					"https://yt3.ggpht.com/a/AGF-l78RCnBXwItPz7NOMEmGVDdZ6Qaoss63865a8Q=s900-c-k-c0xffffffff-no-rj-mo");
-			Permission permission = repo.getPermissionById(3L);
+			Permission permission = repo.getPermissionById(1L);
 			List<Permission> permissionList = new ArrayList<>();
 			permissionList.add(permission);
 			user.setPermissions(permissionList);
