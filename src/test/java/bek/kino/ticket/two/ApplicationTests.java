@@ -1,22 +1,58 @@
 package bek.kino.ticket.two;
 
+import bek.kino.ticket.two.BodySample.Balance;
+import bek.kino.ticket.two.BodySample.ImgUpdateBody;
+import bek.kino.ticket.two.BodySample.SamplePermissionId;
+import bek.kino.ticket.two.api.UserController;
 import bek.kino.ticket.two.dto.MainUserDTO;
 import bek.kino.ticket.two.dto.PermissionDTO;
+import bek.kino.ticket.two.dto.UserDTO;
 import bek.kino.ticket.two.mapper.MainUserMapper;
 import bek.kino.ticket.two.model.User;
+import bek.kino.ticket.two.services.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @SpringBootTest
 class ApplicationTests {
 
 	@Autowired
 	private MainUserMapper mainUserMapper;
+
+	@Mock
+	private UserService userService;
+
+	@InjectMocks
+	private UserController userController;
+
+	private MockMvc mockMvc;
+
+	@BeforeEach
+	public void setup() {
+		MockitoAnnotations.openMocks(this);
+		this.mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+	}
 
 	@Test
 	void contextLoads() {
@@ -164,6 +200,92 @@ class ApplicationTests {
 		Assertions.assertEquals(userDTO2.getPassword(), userList.get(1).getPassword());
 		Assertions.assertEquals(userDTO2.getFullName(), userList.get(1).getFullName());
 		Assertions.assertEquals(userDTO2.getImgLink(), userList.get(1).getImgLink());
+	}
+
+	@Test
+	@WithMockUser
+	public void testUpdateProfileImg() throws Exception {
+		ImgUpdateBody imgUpdateBody = new ImgUpdateBody();
+		MainUserDTO mainUserDTO = new MainUserDTO();
+
+		when(userService.updateImgInProfile(any(ImgUpdateBody.class))).thenReturn(mainUserDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/set-img")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("{}"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	@WithMockUser
+	public void testPlusBalance() throws Exception {
+		Balance balance = new Balance();
+		MainUserDTO mainUserDTO = new MainUserDTO();
+
+		when(userService.topToBalance(any(Balance.class))).thenReturn(mainUserDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/plusBalance")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("{}"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	@WithMockUser
+	public void testGetCurrentSessionUser() throws Exception {
+		UserDTO userDTO = new UserDTO();
+
+		when(userService.getUserById(anyLong())).thenReturn(userDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/getCurrentUser/{id}", 1)
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	public void testGetAllUsers() throws Exception {
+		List<MainUserDTO> users = new ArrayList<>();
+
+		when(userService.getAllUsers()).thenReturn(users);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/getAllUsers")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	public void testAssign() throws Exception {
+		SamplePermissionId samplePermissionId = new SamplePermissionId();
+		MainUserDTO mainUserDTO = new MainUserDTO();
+
+		when(userService.assign(any(SamplePermissionId.class))).thenReturn(mainUserDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.put("/assign")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("{}"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
+	}
+
+	@Test
+	@WithMockUser(roles = "ADMIN")
+	public void testDeletePer() throws Exception {
+		SamplePermissionId samplePermissionId = new SamplePermissionId();
+		MainUserDTO mainUserDTO = new MainUserDTO();
+
+		when(userService.deletePer(any(SamplePermissionId.class))).thenReturn(mainUserDTO);
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/deletePer")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("{}"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andDo(print());
 	}
 
 }
