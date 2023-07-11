@@ -153,7 +153,8 @@
                         console.log(courseList);
                         let eventContent = "";
 
-                        eventContent += "<img src=\"" + courseList.pictureLink + "\" class=\"card-img-top\" alt=\"...\">\n" +
+                        eventContent += "<img src=\"" + courseList.pictureLink +
+                            "\" class=\"card-img-top\" alt=\"...\">\n" +
                             "            <div class=\"card-body\">\n" +
                             "                <h5 class=\"card-title\">" + courseList.author + "</h5>\n" +
                             "                <p class=\"card-text\">" + courseList.eventName + "</p>\n" +
@@ -185,7 +186,9 @@
                         let halls = "";
 
                         for (let i = 0; i < hallList.length; i++) {
-                            halls += "<option value='" + hallList[i].id + "' selected = '" + (Hall.value !== hallList[i].id ? '' : 'selected') + "''>" + hallList[i].id + "</option>";
+                            halls += "<option value='" + hallList[i].id + "' selected = '"
+                                + (Hall.value !== hallList[i].id ? '' : 'selected') + "''>"
+                                + hallList[i].id + "</option>";
                         }
                         Hall.innerHTML = halls;
                     }

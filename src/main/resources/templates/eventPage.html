@@ -152,14 +152,17 @@
                                 "     <div class=\"user d-flex flex-row align-items-center\">\n" +
                                 "          <img class='me-3' src=\"" + courseList[i].user.imgLink + "\" width=\"30\"\n" +
                                 "               class=\"user-img rounded-circle mr-2\">\n" +
-                                "                     <span><small class=\"font-weight-bold text-primary\">" + courseList[i].user.fullName + "</small>\n" +
-                                "                           <small class=\"font-weight-bold ms-2\">" + courseList[i].comment + "</small></span>\n" +
+                                "                     <span><small class=\"font-weight-bold text-primary\">" +
+                                courseList[i].user.fullName + "</small>\n" +
+                                "                     <small class=\"font-weight-bold ms-2\">" + courseList[i].comment
+                                + "</small></span>\n" +
                                 "     </div>\n" +
                                 "     <small></small>\n" +
                                 "</div>\n" +
                                 "<div class=\"action d-flex justify-content-between mt-2 align-items-center mb-2\">\n" +
                                 "     <div class=\"icons align-items-center mt-2\">\n" +
-                                "          <button type=\"button\" class=\"btn btn-danger btn-sm\" data-bs-toggle=\"modal\"\n" +
+                                "          <button type=\"button\" class=\"btn btn-danger btn-sm\"" +
+                                " data-bs-toggle=\"modal\"\n" +
                                 "                  data-bs-target=\"#delete\">\n" +
                                 "                       delete\n" +
                                 "          </button>\n" +

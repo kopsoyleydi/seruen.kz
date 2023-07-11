@@ -24,9 +24,11 @@
                         tableContent += "<div class=\"col\">\n" +
                             "            <div class=\"card\">";
                         tableContent += " <div class=\"card-body\">\n" +
-                            "                    <h5 class=\"card-title\">" + courseList[i].event.eventName + "</h5>\n" +
+                            "                    <h5 class=\"card-title\">" + courseList[i].event.eventName + "</h5>\n"
+                            +
                             "                    <p class=\"card-text\">" + courseList[i].primeCodeTicket + "</p>\n" +
-                            "                    <p class=\"card-text\">" + "Your hall is: " + courseList[i].event.hall.id + ", your place" + courseList[i].place + "</p>\n" +
+                            "                    <p class=\"card-text\">" + "Your hall is: " +
+                            courseList[i].event.hall.id + ", your place " + courseList[i].place + "</p>\n" +
                             "                </div>";
                         tableContent += "</div>\n" +
                             "</div>";

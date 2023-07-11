@@ -107,7 +107,8 @@
                         let permissionList = JSON.parse(httpRequest.responseText);
                         let permissionContent = "";
                         for (let i = 0; i < permissionList.length; i++) {
-                            permissionContent += "<option value='" + permissionList[i].id + "' class='form-control'>" + permissionList[i].role + "</option>"
+                            permissionContent += "<option value='" + permissionList[i].id + "' class='form-control'>"
+                                + permissionList[i].role + "</option>"
                         }
                         document.getElementById("select").innerHTML = permissionContent;
                         detailsModal.show();

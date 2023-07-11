@@ -45,6 +45,7 @@ public class EventService {
 		Hall hall = hallRepo.getHallById(eventSample.getHall_id());
 		event.setHall(hall);
 		event.setPictureLink(eventSample.getPictureLink());
+		event.setStatus("true");
 		return eventMapper.toDto(eventRepo.addEvent(event));
 	}
 
