@@ -17,7 +17,6 @@ public class Tickets extends BaseModel {
 	private User user;
 
 	@Column(name = "prime_code_ticket")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long primeCodeTicket;
 
 	private int place;

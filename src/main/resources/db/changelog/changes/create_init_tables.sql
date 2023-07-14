@@ -1,62 +1,77 @@
-CREATE TABLE halls
+create table halls
 (
-    id    SERIAL PRIMARY KEY,
-    place INT
-);
-CREATE TABLE t_permissions
-(
-    id   SERIAL PRIMARY KEY,
-    role VARCHAR(255)
+    id    bigint auto_increment,
+    place int,
+    primary key (id)
 );
 
-CREATE TABLE events
+create table t_users
 (
-    id           SERIAL PRIMARY KEY,
-    event_name   VARCHAR(255),
-    event_date   VARCHAR(255),
-    author       VARCHAR(255),
-    picture_link VARCHAR(255),
-    hall_id      INT,
-    price        INT,
-    status       VARCHAR(255),
-    FOREIGN KEY (hall_id) REFERENCES halls (id)
-);
-
-CREATE TABLE t_users
-(
-    id        SERIAL PRIMARY KEY,
+    id        bigint auto_increment,
     email     VARCHAR(255),
     password  VARCHAR(255),
     full_name VARCHAR(255),
     img_link  VARCHAR(255),
-    balance   INT
+    balance   INT,
+    primary key (id)
 );
 
-CREATE TABLE comment
+create table permission
 (
-    id       SERIAL PRIMARY KEY,
-    comment  VARCHAR(255),
+    id   bigint auto_increment,
+    role varchar(255),
+    primary key (id)
+);
+
+create table t_events
+(
+    id           bigint auto_increment,
+    event_name   VARCHAR(255),
+    event_date   VARCHAR(255),
+    author       VARCHAR(255),
+    picture_link VARCHAR(255),
+    hall_id      bigint,
+    price        INT,
+    status     VARCHAR(255),
+    PRIMARY KEY (id),
+    FOREIGN KEY (hall_id) REFERENCES halls (id)
+);
+
+
+create table comment
+(
+    id       bigint auto_increment,
+    comment  varchar(255),
     event_id BIGINT,
     user_id  BIGINT,
-    FOREIGN KEY (event_id) REFERENCES events (id),
-    FOREIGN KEY (user_id) REFERENCES t_users (id)
+    FOREIGN KEY (event_id) REFERENCES t_events (id),
+    FOREIGN KEY (user_id) REFERENCES t_users (id),
+    primary key (id)
 );
 
-CREATE TABLE tickets
+create table tickets
 (
-    id                SERIAL PRIMARY KEY,
+    id                bigint auto_increment,
     event_id          BIGINT,
     user_id           BIGINT,
     prime_code_ticket BIGINT,
     place             INT,
-    FOREIGN KEY (event_id) REFERENCES events (id),
-    FOREIGN KEY (user_id) REFERENCES t_users (id)
+    FOREIGN KEY (event_id) REFERENCES t_events (id),
+    FOREIGN KEY (user_id) REFERENCES t_users (id),
+    primary key (id)
 );
 
 CREATE TABLE t_users_permissions
 (
-    userId       BIGINT,
-    permissionId BIGINT,
-    FOREIGN KEY (userId) REFERENCES t_users (id),
-    FOREIGN KEY (permissionId) REFERENCES t_permissions (id)
+    user_id       BIGINT,
+    permissions_id BIGINT
 );
+
+ALTER TABLE t_users_permissions
+    ADD CONSTRAINT FK_t_users_permissions_permission
+        FOREIGN KEY (permissions_id) REFERENCES permission (id);
+
+ALTER TABLE t_users_permissions
+    ADD CONSTRAINT FK_t_users_permissions_users
+        FOREIGN KEY (user_id) REFERENCES t_users (id);
+

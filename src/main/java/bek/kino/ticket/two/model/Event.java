@@ -9,7 +9,7 @@ import lombok.Setter;
 
 
 @Entity
-@Table(name = "events")
+@Table(name = "t_events")
 @Getter
 @Setter
 public class Event extends BaseModel {

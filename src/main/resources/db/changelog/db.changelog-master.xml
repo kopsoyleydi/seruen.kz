@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet id="create_init_tables" author="beksultan">
         <sqlFile
-                dbms="postgres"
+                dbms="mysql"
+                encoding="UTF-8"
                 endDelimiter=";"
                 path="db/changelog/changes/create_init_tables.sql"
                 relativeToChangelogFile="false"
@@ -14,11 +15,12 @@
         />
     </changeSet>
 
-    <changeSet id="insert_init_data" author="beksultan">
+    <changeSet id="insert" author="beksultan">
         <sqlFile
-                dbms="postgres"
+                dbms="mysql"
+                encoding="UTF-8"
                 endDelimiter=";"
-                path="db/changelog/changes/insert_init_data.sql"
+                path="db/changelog/changes/insert.sql"
                 relativeToChangelogFile="false"
                 stripComments="true"
                 splitStatements="true"

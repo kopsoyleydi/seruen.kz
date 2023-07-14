@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "t_permission")
+@Table(name = "permission")
 @Getter
 @Setter
 public class Permission extends BaseModel implements GrantedAuthority {
